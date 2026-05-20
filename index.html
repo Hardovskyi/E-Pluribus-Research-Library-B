@@ -1338,7 +1338,7 @@ const resources = [
 
     const state = {
       search: "",
-      economicImpact: "",
+      economicImpacts: [],
       demographics: [],
       geographies: [],
       populations: [],
@@ -1402,10 +1402,10 @@ const resources = [
       economicPillsEl.innerHTML = "";
       const allBtn = document.createElement("button");
       allBtn.type = "button";
-      allBtn.className = "eia-pill" + (state.economicImpact === "" ? " active" : "");
+      allBtn.className = "eia-pill" + (state.economicImpacts.length === 0 ? " active" : "");
       allBtn.textContent = "All Areas";
       allBtn.addEventListener("click", () => {
-        state.economicImpact = "";
+        state.economicImpacts = [];
         state.page = 1;
         state.openKey = null;
         renderEconomicPills();
@@ -1416,10 +1416,14 @@ const resources = [
       (subtypeMap["Economic Impact Areas"] || []).forEach(label => {
         const b = document.createElement("button");
         b.type = "button";
-        b.className = "eia-pill" + (state.economicImpact === label ? " active" : "");
+        b.className = "eia-pill" + (state.economicImpacts.includes(label) ? " active" : "");
         b.textContent = label;
         b.addEventListener("click", () => {
-          state.economicImpact = label;
+          if (state.economicImpacts.includes(label)) {
+            state.economicImpacts = state.economicImpacts.filter(value => value !== label);
+          } else {
+            state.economicImpacts = [...state.economicImpacts, label];
+          }
           state.page = 1;
           state.openKey = null;
           renderEconomicPills();
@@ -1432,7 +1436,7 @@ const resources = [
     function hasResettableFilters() {
       return Boolean(
         state.search.trim() ||
-        state.economicImpact ||
+        state.economicImpacts.length ||
         state.demographics.length ||
         state.geographies.length ||
         state.populations.length ||
@@ -1448,14 +1452,14 @@ const resources = [
 
     function renderActiveFilterChips() {
       const chips = [];
-      if (state.economicImpact) {
+      state.economicImpacts.forEach(value => {
         chips.push(`
           <span class="filter-chip">
-            <span>Economic Impact: ${escapeHtml(state.economicImpact)}</span>
-            <button type="button" class="filter-chip-remove" aria-label="Remove economic impact filter" data-chip-kind="economic" data-chip-value="">×</button>
+            <span>Economic Impact: ${escapeHtml(value)}</span>
+            <button type="button" class="filter-chip-remove" aria-label="Remove filter" data-chip-kind="economic" data-chip-value="${escapeHtml(value)}">×</button>
           </span>
         `);
-      }
+      });
       state.demographics.forEach(value => {
         chips.push(`
           <span class="filter-chip">
@@ -1625,7 +1629,7 @@ const resources = [
 
         const matchesSearch = !state.search || haystack.includes(state.search.toLowerCase());
         const itemEconomic = item.tags["Economic Impact Areas"] || [];
-        const matchesEconomic = !state.economicImpact || itemEconomic.includes(state.economicImpact);
+        const matchesEconomic = state.economicImpacts.length === 0 || state.economicImpacts.every(value => itemEconomic.includes(value));
         const itemDemographics = item.tags["Demographic Analysis Included"] || [];
         const itemGeographies = item.tags["Geographic Focus of the Publication"] || [];
         const itemPopulations = item.tags["Special Populations Covered"] || [];
@@ -1672,7 +1676,7 @@ const resources = [
 
     function resetFilters() {
       state.search = "";
-      state.economicImpact = "";
+      state.economicImpacts = [];
       state.demographics = [];
       state.geographies = [];
       state.populations = [];
@@ -1901,7 +1905,7 @@ const resources = [
       const kind = btn.dataset.chipKind;
       const value = btn.dataset.chipValue || "";
       if (kind === "economic") {
-        state.economicImpact = "";
+        state.economicImpacts = state.economicImpacts.filter(v => v !== value);
         renderEconomicPills();
       } else if (kind === "demographic") {
         state.demographics = state.demographics.filter(v => v !== value);
