@@ -537,7 +537,8 @@
 
     .resource-media {
       width: 180px;
-      height: 132px;
+      height: auto;
+      aspect-ratio: 1 / 1;
       background: linear-gradient(135deg, rgba(8,52,82,0.10), rgba(138,205,219,0.18));
       border: 1px solid rgba(8, 52, 82, 0.10);
     }
@@ -567,7 +568,7 @@
       font-family: "League Spartan", Arial, sans-serif;
       font-size: 16px;
       font-weight: 800;
-      color: var(--muted);
+      color: var(--orange);
       letter-spacing: 0.03em;
       text-transform: uppercase;
       white-space: nowrap;
@@ -603,9 +604,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border: 1px solid var(--line);
-      background: var(--cream);
-      padding: 12px 14px;
+      border: none;
+      background: transparent;
+      padding: 12px 0;
       font-family: "League Spartan", Arial, sans-serif;
       font-size: 16px;
       font-weight: 800;
@@ -614,15 +615,20 @@
       text-align: left;
     }
 
-    .readmore-caret {
-      color: var(--muted);
-      font-size: 18px;
+    .readmore-button:hover {
+      color: var(--orange);
+    }
+
+    .readmore-icon {
+      color: var(--orange);
+      font-size: 22px;
+      line-height: 1;
       transform: rotate(0deg);
       transition: transform 0.2s ease;
     }
 
-    .readmore-button[aria-expanded="true"] .readmore-caret {
-      transform: rotate(180deg);
+    .readmore-button[aria-expanded="true"] .readmore-icon {
+      transform: rotate(45deg);
     }
 
     .details {
@@ -712,7 +718,8 @@
 
       .resource-media {
         width: 100%;
-        height: 160px;
+        height: auto;
+        aspect-ratio: 1 / 1;
       }
     }
 
@@ -1657,7 +1664,7 @@
 
                   <button class="readmore-button" type="button" data-key="${key}" aria-expanded="${isOpen}">
                     <span>Read More</span>
-                    <span class="readmore-caret">˅</span>
+                    <span class="readmore-icon" aria-hidden="true">+</span>
                   </button>
 
                   <div class="details ${isOpen ? "open" : ""}">
