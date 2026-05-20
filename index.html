@@ -168,7 +168,7 @@
     }
 
     .layout-filters {
-      width: min(var(--layout-filters-max), calc(100vw - var(--layout-gutter)));
+      width: min(var(--layout-wide-max), calc(100vw - var(--layout-gutter)));
       margin-left: auto;
       margin-right: auto;
     }
@@ -524,65 +524,105 @@
     }
 
     .item {
-      padding: 28px 0 24px;
+      padding: 26px 0;
       border-bottom: 1px solid rgba(8, 52, 82, 0.08);
     }
 
-    .type {
-      font-family: "League Spartan", Arial, sans-serif;
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--teal);
-      margin-bottom: 8px;
+    .resource-card {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 18px 22px;
+      align-items: start;
     }
 
-    .title-button {
+    .resource-media {
+      width: 180px;
+      height: 132px;
+      background: linear-gradient(135deg, rgba(8,52,82,0.10), rgba(138,205,219,0.18));
+      border: 1px solid rgba(8, 52, 82, 0.10);
+    }
+
+    .resource-main {
+      min-width: 0;
+    }
+
+    .resource-header {
       display: flex;
-      align-items: flex-start;
       justify-content: space-between;
-      gap: 18px;
+      gap: 14px;
+      align-items: baseline;
+    }
+
+    .resource-title {
+      margin: 0;
+      font-family: "League Spartan", Arial, sans-serif;
+      font-size: clamp(24px, 2.7vw, 34px);
+      line-height: 1.15;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .resource-year {
+      flex: 0 0 auto;
+      font-family: "League Spartan", Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .resource-authors {
+      margin: 6px 0 10px;
+      font-family: "League Spartan", Arial, sans-serif;
+      font-size: 16px;
+      color: var(--text);
+    }
+
+    .impact-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 6px 0 12px;
+    }
+
+    .impact-tag {
+      border: 1px solid var(--line);
+      background: var(--cream);
+      color: var(--navy);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-family: "League Spartan", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .readmore-button {
       width: 100%;
-      padding: 0;
-      border: none;
-      background: transparent;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid var(--line);
+      background: var(--cream);
+      padding: 12px 14px;
+      font-family: "League Spartan", Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--navy);
       cursor: pointer;
       text-align: left;
     }
 
-    .title-text {
-      display: inline-block;
-      font-family: "League Spartan", Arial, sans-serif;
-      font-size: clamp(25px, 3.2vw, 31px);
-      line-height: 1.18;
-      font-weight: 700;
-      color: var(--navy);
-      transition: color 0.2s ease;
-    }
-
-    .title-button:hover .title-text {
-      color: var(--orange);
-    }
-
-    .toggle-icon {
-      flex: 0 0 auto;
-      margin-top: 4px;
-      color: var(--orange);
-      font-family: "League Spartan", Arial, sans-serif;
-      font-size: 24px;
-      line-height: 1;
+    .readmore-caret {
+      color: var(--muted);
+      font-size: 18px;
+      transform: rotate(0deg);
       transition: transform 0.2s ease;
     }
 
-    .title-button[aria-expanded="true"] .toggle-icon {
-      transform: rotate(45deg);
-    }
-
-    .date {
-      font-family: "League Spartan", Arial, sans-serif;
-      font-size: 18px;
-      color: var(--orange);
-      margin: 10px 0 0;
+    .readmore-button[aria-expanded="true"] .readmore-caret {
+      transform: rotate(180deg);
     }
 
     .details {
@@ -593,8 +633,8 @@
     }
 
     .details.open {
-      max-height: 540px;
-      margin-top: 16px;
+      max-height: 900px;
+      margin-top: 14px;
     }
 
     .details-inner {
@@ -603,40 +643,77 @@
       padding: 16px 18px 14px;
     }
 
-    .authors,
-    .expertise,
-    .summary,
-    .meta-tags {
+    .summary {
       max-width: 860px;
       color: var(--text);
       font-size: 15px;
       line-height: 1.7;
+      margin: 0 0 12px;
+    }
+
+    .tag-group {
+      margin-top: 10px;
+    }
+
+    .tag-group-title {
+      font-family: "League Spartan", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
       margin-bottom: 8px;
     }
 
-    .authors strong,
-    .expertise strong,
-    .meta-tags strong {
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag-pill {
+      border: 1px solid var(--line);
+      background: var(--white);
       color: var(--navy);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-family: "League Spartan", Arial, sans-serif;
+      font-size: 14px;
       font-weight: 700;
+    }
+
+    .tag-pill.muted {
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.6);
     }
 
     .resource-link {
       display: inline-block;
-      margin-top: 10px;
+      margin-top: 12px;
       padding: 10px 14px;
       background: var(--orange);
       color: white;
       text-decoration: none;
       font-family: "League Spartan", Arial, sans-serif;
       font-size: 16px;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: 0.01em;
       transition: background 0.2s ease;
     }
 
     .resource-link:hover {
       background: #d95c1a;
+    }
+
+    @media (max-width: 760px) {
+      .resource-card {
+        grid-template-columns: 1fr;
+      }
+
+      .resource-media {
+        width: 100%;
+        height: 160px;
+      }
     }
 
     .pagination {
@@ -1558,21 +1635,73 @@
         list.innerHTML = visible.map((item, index) => {
           const key = `${start + index}`;
           const isOpen = state.openKey === key;
-          const typeLabel = item.tags["Publication Format"]?.[0] || "Resource";
+          const impactAreas = item.tags["Economic Impact Areas"] || [];
+          const typeLabel = (item.tags["Publication Format"] || []).join(", ") || "—";
+          const demographics = item.tags["Demographic Analysis Included"] || [];
+          const geographies = item.tags["Geographic Focus of the Publication"] || [];
+          const populations = item.tags["Special Populations Covered"] || [];
+          const useCases = item.tags["Use Case"] || [];
           return `
             <article class="item">
-              <div class="type">${typeLabel}</div>
-              <button class="title-button" data-key="${key}" aria-expanded="${isOpen}">
-                <span class="title-text">${item.title}</span>
-                <span class="toggle-icon">+</span>
-              </button>
-              <div class="date">${item.date}</div>
-              <div class="details ${isOpen ? "open" : ""}">
-                <div class="details-inner">
-                  <div class="authors"><strong>Authors:</strong> ${item.authors}</div>
-                  <div class="meta-tags"><strong>Formats:</strong> ${(item.tags["Publication Format"] || []).join(", ") || "—"}</div>
-                  <div class="summary">${item.summary}</div>
-                  <a class="resource-link" href="${item.url}" target="_blank" rel="noopener noreferrer">Open source</a>
+              <div class="resource-card">
+                <div class="resource-media" aria-hidden="true"></div>
+                <div class="resource-main">
+                  <div class="resource-header">
+                    <h2 class="resource-title">${item.title}</h2>
+                    <div class="resource-year">${item.date}</div>
+                  </div>
+                  <div class="resource-authors">${item.authors}</div>
+                  <div class="impact-tags" aria-label="Economic impact areas">
+                    ${(impactAreas.length ? impactAreas : ["—"]).map(tag => `<span class="impact-tag">${tag}</span>`).join("")}
+                  </div>
+
+                  <button class="readmore-button" type="button" data-key="${key}" aria-expanded="${isOpen}">
+                    <span>Read More</span>
+                    <span class="readmore-caret">˅</span>
+                  </button>
+
+                  <div class="details ${isOpen ? "open" : ""}">
+                    <div class="details-inner">
+                      <p class="summary">${item.summary}</p>
+
+                      <div class="tag-group">
+                        <div class="tag-group-title">Demographic Analysis Included</div>
+                        <div class="tag-row">
+                          ${(demographics.length ? demographics : ["—"]).map(t => `<span class="tag-pill ${t === "—" ? "muted" : ""}">${t}</span>`).join("")}
+                        </div>
+                      </div>
+
+                      <div class="tag-group">
+                        <div class="tag-group-title">Geographic Focus of the Publication</div>
+                        <div class="tag-row">
+                          ${(geographies.length ? geographies : ["—"]).map(t => `<span class="tag-pill ${t === "—" ? "muted" : ""}">${t}</span>`).join("")}
+                        </div>
+                      </div>
+
+                      <div class="tag-group">
+                        <div class="tag-group-title">Special Populations Covered</div>
+                        <div class="tag-row">
+                          ${(populations.length ? populations : ["—"]).map(t => `<span class="tag-pill ${t === "—" ? "muted" : ""}">${t}</span>`).join("")}
+                        </div>
+                      </div>
+
+                      <div class="tag-group">
+                        <div class="tag-group-title">Publication Format</div>
+                        <div class="tag-row">
+                          ${(typeLabel !== "—" ? typeLabel.split(", ").filter(Boolean) : ["—"]).map(t => `<span class="tag-pill ${t === "—" ? "muted" : ""}">${t}</span>`).join("")}
+                        </div>
+                      </div>
+
+                      <div class="tag-group">
+                        <div class="tag-group-title">Use Case</div>
+                        <div class="tag-row">
+                          ${(useCases.length ? useCases : ["—"]).map(t => `<span class="tag-pill ${t === "—" ? "muted" : ""}">${t}</span>`).join("")}
+                        </div>
+                      </div>
+
+                      <a class="resource-link" href="${item.url}" target="_blank" rel="noopener noreferrer">Open Source</a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </article>
@@ -1586,7 +1715,7 @@
     }
 
     function attachToggleHandlers() {
-      list.querySelectorAll(".title-button").forEach(button => {
+      list.querySelectorAll(".readmore-button").forEach(button => {
         button.addEventListener("click", () => {
           const key = button.dataset.key;
           state.openKey = state.openKey === key ? null : key;
