@@ -284,17 +284,6 @@
       align-items: center;
       gap: 10px 12px;
       margin-bottom: 20px;
-      padding: 12px 14px;
-      background: var(--cream);
-      border: 1px solid var(--line);
-    }
-
-    .active-filters-label {
-      font-family: "League Spartan", Arial, sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--muted);
-      margin-right: 4px;
     }
 
     .filter-chip-list {
@@ -309,11 +298,12 @@
     .filter-chip {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       border: 1px solid var(--line);
-      background: var(--white);
+      background: var(--cream);
       color: var(--navy);
-      padding: 6px 10px 6px 12px;
+      padding: 6px 14px 6px 16px;
+      border-radius: 999px;
       font-family: "League Spartan", Arial, sans-serif;
       font-size: 14px;
       font-weight: 600;
@@ -338,14 +328,15 @@
 
     .reset-button {
       height: 36px;
-      padding: 0 14px;
+      padding: 0 18px;
       border: 1px solid var(--line);
-      background: var(--white);
+      background: var(--cream);
       color: var(--navy);
       font-family: "League Spartan", Arial, sans-serif;
       font-size: 14px;
       font-weight: 700;
       cursor: pointer;
+      border-radius: 999px;
       transition: border-color 0.2s ease, color 0.2s ease;
       flex-shrink: 0;
     }
@@ -355,8 +346,7 @@
       color: var(--orange);
     }
 
-    .control label,
-    .subtype-label {
+    .control label {
       font-family: "League Spartan", Arial, sans-serif;
       font-size: 15px;
       color: var(--navy);
@@ -466,47 +456,6 @@
       margin: 0;
     }
 
-    .subtype-panel {
-      margin-bottom: 28px;
-      display: none;
-    }
-
-    .subtype-panel.visible {
-      display: block;
-    }
-
-    .bubble-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .bubble {
-      border: 1px solid var(--line);
-      background: var(--cream);
-      color: var(--navy);
-      padding: 10px 14px 9px;
-      font-family: "League Spartan", Arial, sans-serif;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-    }
-
-    .bubble:hover,
-    .bubble.active {
-      background: var(--orange);
-      border-color: var(--orange);
-      color: white;
-    }
-
-    .subtype-help {
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.55;
-    }
 
     .results-meta {
       display: flex;
@@ -872,14 +821,6 @@
         <h2 class="filters-heading">Filters</h2>
         <div class="controls">
           <div class="control">
-            <label for="typeFilter">Category Headers</label>
-            <div class="select-wrap">
-              <select id="typeFilter" aria-label="Category headers"></select>
-              <span class="select-icon">▼</span>
-            </div>
-          </div>
-
-          <div class="control">
             <label for="demographicFilter">Demographic Analysis Included</label>
             <div class="multi-select" id="demographicFilter">
               <button class="multi-select-button" type="button" aria-label="Demographic analysis included">All</button>
@@ -939,19 +880,10 @@
         </div>
       </section>
 
-      <div id="activeFiltersBar" class="active-filters-bar" aria-label="Active filters">
-        <span class="active-filters-label">Active</span>
+      <div id="activeFiltersBar" class="active-filters-bar" aria-label="Applied filters">
         <div id="activeFilterChips" class="filter-chip-list"></div>
         <button id="resetFiltersButton" class="reset-button" type="button" aria-label="Reset all filters">Reset</button>
       </div>
-
-      <section id="subtypePanel" class="subtype-panel" aria-label="Category refinements">
-        <div class="subtype-label">Categories</div>
-        <div id="bubbleList" class="bubble-list"></div>
-        <div class="subtype-help">
-          Select one or multiple categories to narrow results. If none are selected, all resources under the chosen category header will be shown.
-        </div>
-      </section>
 
       <div class="results-meta">
         <div id="resultsCount">0 results</div>
@@ -1166,13 +1098,6 @@
       }
     ];
 
-    const typeOptions = [
-      "All Resources",
-      "Special Populations Covered",
-      "Publication Format",
-      "Use Case"
-    ];
-
     const pageContent = {
       about: {
         eyebrow: "About",
@@ -1198,8 +1123,6 @@
 
     const state = {
       search: "",
-      type: "All Resources",
-      selectedSubtypes: [],
       economicImpact: "",
       demographics: [],
       geographies: [],
@@ -1215,7 +1138,6 @@
 
     const searchInput = document.getElementById("searchInput");
     const resetFiltersButton = document.getElementById("resetFiltersButton");
-    const typeFilter = document.getElementById("typeFilter");
     const economicPillsEl = document.getElementById("economicPills");
     const activeFilterChips = document.getElementById("activeFilterChips");
     const demographicFilter = document.getElementById("demographicFilter");
@@ -1245,8 +1167,6 @@
     const resourcesMenuButton = document.getElementById("resourcesMenuButton");
     const resourcesDropdown = document.getElementById("resourcesDropdown");
     const dropdownItems = document.querySelectorAll(".dropdown-item");
-    const subtypePanel = document.getElementById("subtypePanel");
-    const bubbleList = document.getElementById("bubbleList");
 
     const sections = {
       about: document.getElementById("aboutPage"),
@@ -1261,10 +1181,6 @@
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;");
-    }
-
-    function uniqueValues(values) {
-      return [...new Set(values)].filter(Boolean).sort((a, b) => a.localeCompare(b));
     }
 
     function renderEconomicPills() {
@@ -1348,29 +1264,7 @@
           </span>
         `);
       });
-      if (state.type !== "All Resources") {
-        chips.push(`
-          <span class="filter-chip">
-            <span>Category header: ${escapeHtml(state.type)}</span>
-            <button type="button" class="filter-chip-remove" aria-label="Remove category header filter" data-chip-kind="type" data-chip-value="">×</button>
-          </span>
-        `);
-      }
-      state.selectedSubtypes.forEach(value => {
-        chips.push(`
-          <span class="filter-chip">
-            <span>Category: ${escapeHtml(value)}</span>
-            <button type="button" class="filter-chip-remove" aria-label="Remove category filter" data-chip-kind="subtype" data-chip-value="${escapeHtml(value)}">×</button>
-          </span>
-        `);
-      });
-      activeFilterChips.innerHTML = chips.length ? chips.join("") : `<span style="color:var(--muted);font-family:'League Spartan',Arial,sans-serif;font-size:14px;">No active filters</span>`;
-    }
-
-    function fillTypeFilter() {
-      typeFilter.innerHTML = typeOptions.map(option => `
-        <option value="${option}" ${option === state.type ? "selected" : ""}>${option}</option>
-      `).join("");
+      activeFilterChips.innerHTML = chips.length ? chips.join("") : `<span style="color:var(--muted);font-family:'League Spartan',Arial,sans-serif;font-size:14px;">No filters applied</span>`;
     }
 
     function renderMultiSelect(panelEl, buttonEl, options, selectedValues, emptyLabel) {
@@ -1458,38 +1352,8 @@
       return sorted;
     }
 
-    function renderSubtypeBubbles() {
-      if (state.type === "All Resources") {
-        subtypePanel.classList.remove("visible");
-        bubbleList.innerHTML = "";
-        return;
-      }
-
-      const subtypes = subtypeMap[state.type] || [];
-      subtypePanel.classList.add("visible");
-      bubbleList.innerHTML = subtypes.map(subtype => `
-        <button class="bubble ${state.selectedSubtypes.includes(subtype) ? "active" : ""}" data-subtype="${subtype}">${subtype}</button>
-      `).join("");
-
-      bubbleList.querySelectorAll(".bubble").forEach(button => {
-        button.addEventListener("click", () => {
-          const subtype = button.dataset.subtype;
-          if (state.selectedSubtypes.includes(subtype)) {
-            state.selectedSubtypes = state.selectedSubtypes.filter(item => item !== subtype);
-          } else {
-            state.selectedSubtypes = [...state.selectedSubtypes, subtype];
-          }
-          state.page = 1;
-          state.openKey = null;
-          renderSubtypeBubbles();
-          renderList();
-        });
-      });
-    }
-
     function filterResources() {
       const filtered = resources.filter(item => {
-        const tagsForSelectedType = state.type === "All Resources" ? [] : (item.tags[state.type] || []);
         const allTags = Object.values(item.tags).flat();
         const haystack = [
           item.title,
@@ -1515,16 +1379,7 @@
 
         const matchesAuxiliary = matchesEconomic && matchesDemographic && matchesGeographic && matchesPopulation && matchesPublicationFormat && matchesUseCase;
 
-        if (state.type === "All Resources") {
-          return matchesSearch && matchesAuxiliary;
-        }
-
-        const matchesType = tagsForSelectedType.length > 0;
-        const matchesSubtype = state.selectedSubtypes.length === 0
-          ? true
-          : state.selectedSubtypes.some(subtype => tagsForSelectedType.includes(subtype));
-
-        return matchesSearch && matchesAuxiliary && matchesType && matchesSubtype;
+        return matchesSearch && matchesAuxiliary;
       });
 
       return sortResources(filtered);
@@ -1547,13 +1402,9 @@
       });
     }
 
-    function openResourcesWithType(type) {
-      state.type = type;
-      state.selectedSubtypes = [];
+    function openResourcesPage() {
       state.page = 1;
       state.openKey = null;
-      fillTypeFilter();
-      renderSubtypeBubbles();
       setActivePage("resources");
       closeDropdown();
       renderList();
@@ -1561,8 +1412,6 @@
 
     function resetFilters() {
       state.search = "";
-      state.type = "All Resources";
-      state.selectedSubtypes = [];
       state.economicImpact = "";
       state.demographics = [];
       state.geographies = [];
@@ -1575,10 +1424,8 @@
 
       searchInput.value = "";
       sortFilter.value = "year-desc";
-      fillTypeFilter();
       fillAuxiliaryFilters();
       renderEconomicPills();
-      renderSubtypeBubbles();
       renderList();
     }
 
@@ -1599,8 +1446,7 @@
         list.innerHTML = visible.map((item, index) => {
           const key = `${start + index}`;
           const isOpen = state.openKey === key;
-          const selectedTypeTags = state.type === "All Resources" ? [] : (item.tags[state.type] || []);
-          const typeLabel = state.type === "All Resources" ? (item.tags["Publication Format"]?.[0] || "Resource") : state.type;
+          const typeLabel = item.tags["Publication Format"]?.[0] || "Resource";
           return `
             <article class="item">
               <div class="type">${typeLabel}</div>
@@ -1612,7 +1458,7 @@
               <div class="details ${isOpen ? "open" : ""}">
                 <div class="details-inner">
                   <div class="authors"><strong>Authors:</strong> ${item.authors}</div>
-                  ${state.type === "All Resources" ? `<div class="meta-tags"><strong>Formats:</strong> ${(item.tags["Publication Format"] || []).join(", ") || "—"}</div>` : `<div class="expertise"><strong>${state.type}:</strong> ${selectedTypeTags.length ? selectedTypeTags.join(", ") : "Not tagged in this category"}</div>`}
+                  <div class="meta-tags"><strong>Formats:</strong> ${(item.tags["Publication Format"] || []).join(", ") || "—"}</div>
                   <div class="summary">${item.summary}</div>
                   <a class="resource-link" href="${item.url}" target="_blank" rel="noopener noreferrer">Open source</a>
                 </div>
@@ -1691,7 +1537,7 @@
 
     dropdownItems.forEach(button => {
       button.addEventListener("click", () => {
-        openResourcesWithType(button.dataset.type);
+        openResourcesPage();
       });
     });
 
@@ -1715,15 +1561,6 @@
       state.search = e.target.value.trim();
       state.page = 1;
       state.openKey = null;
-      renderList();
-    });
-
-    typeFilter.addEventListener("change", e => {
-      state.type = e.target.value;
-      state.selectedSubtypes = [];
-      state.page = 1;
-      state.openKey = null;
-      renderSubtypeBubbles();
       renderList();
     });
 
@@ -1769,25 +1606,15 @@
       } else if (kind === "useCase") {
         state.useCases = state.useCases.filter(v => v !== value);
         fillAuxiliaryFilters();
-      } else if (kind === "type") {
-        state.type = "All Resources";
-        state.selectedSubtypes = [];
-        fillTypeFilter();
-        renderSubtypeBubbles();
-      } else if (kind === "subtype") {
-        state.selectedSubtypes = state.selectedSubtypes.filter(v => v !== value);
-        renderSubtypeBubbles();
       }
       state.page = 1;
       state.openKey = null;
       renderList();
     });
 
-    fillTypeFilter();
     fillAuxiliaryFilters();
     renderEconomicPills();
     setActivePage("about");
-    renderSubtypeBubbles();
     renderList();
   </script>
 </body>
