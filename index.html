@@ -202,16 +202,71 @@
     }
 
     .search-row {
-      margin-bottom: 16px;
-      display: grid;
-      grid-template-columns: minmax(280px, 1fr) minmax(220px, 280px) auto;
-      gap: 12px;
-      align-items: end;
+      margin-bottom: 20px;
+    }
+
+    .search-row .control {
+      max-width: none;
+    }
+
+    .eia-section {
+      margin-bottom: 22px;
+      padding-bottom: 14px;
+      border-bottom: 3px solid var(--teal);
+    }
+
+    .eia-heading {
+      font-family: "League Spartan", Arial, sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--navy);
+      margin: 0 0 12px;
+    }
+
+    .eia-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .eia-pill {
+      border: 1px solid var(--line);
+      background: var(--cream);
+      color: var(--navy);
+      padding: 10px 16px 9px;
+      font-family: "League Spartan", Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .eia-pill:hover {
+      border-color: var(--aqua);
+    }
+
+    .eia-pill.active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: var(--white);
+    }
+
+    .filters-section {
+      margin-bottom: 18px;
+    }
+
+    .filters-heading {
+      font-family: "League Spartan", Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--navy);
+      margin: 0 0 12px;
     }
 
     .controls {
       display: grid;
-      grid-template-columns: repeat(4, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 18px 22px;
       align-items: end;
       margin-bottom: 18px;
@@ -223,23 +278,76 @@
       gap: 8px;
     }
 
-    .search-actions {
+    .active-filters-bar {
       display: flex;
-      align-items: end;
-      min-height: 52px;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 12px;
+      margin-bottom: 20px;
+      padding: 12px 14px;
+      background: var(--cream);
+      border: 1px solid var(--line);
+    }
+
+    .active-filters-label {
+      font-family: "League Spartan", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-right: 4px;
+    }
+
+    .filter-chip-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      color: var(--navy);
+      padding: 6px 10px 6px 12px;
+      font-family: "League Spartan", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: default;
+      max-width: 100%;
+    }
+
+    .filter-chip-remove {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0 2px;
+      font-weight: 700;
+    }
+
+    .filter-chip-remove:hover {
+      color: var(--orange);
     }
 
     .reset-button {
-      height: 52px;
-      padding: 0 16px;
+      height: 36px;
+      padding: 0 14px;
       border: 1px solid var(--line);
       background: var(--white);
       color: var(--navy);
       font-family: "League Spartan", Arial, sans-serif;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 700;
       cursor: pointer;
       transition: border-color 0.2s ease, color 0.2s ease;
+      flex-shrink: 0;
     }
 
     .reset-button:hover {
@@ -692,14 +800,6 @@
     }
 
     @media (max-width: 760px) {
-      .search-row {
-        grid-template-columns: 1fr;
-      }
-
-      .controls {
-        grid-template-columns: 1fr;
-      }
-
       .contact-grid {
         grid-template-columns: 1fr;
       }
@@ -733,7 +833,6 @@
           <button class="nav-tab nav-with-caret" id="resourcesMenuButton" aria-expanded="false">Resources <span class="caret">▼</span></button>
           <div class="resource-dropdown" id="resourcesDropdown">
             <button class="dropdown-item" data-type="All Resources">All Resources</button>
-            <button class="dropdown-item" data-type="Economic Impact Areas">Economic Impact Areas</button>
             <button class="dropdown-item" data-type="Special Populations Covered">Special Populations Covered</button>
             <button class="dropdown-item" data-type="Publication Format">Publication Format</button>
             <button class="dropdown-item" data-type="Use Case">Use Case</button>
@@ -758,66 +857,95 @@
         <div class="control">
           <label for="searchInput">Search</label>
           <div class="search-wrap">
-            <input id="searchInput" type="search" placeholder="Search" aria-label="Search resources" />
+            <input id="searchInput" type="search" placeholder="Search resources by keyword, topic, or organization…" aria-label="Search resources" />
             <span class="search-icon">⌕</span>
           </div>
         </div>
-        <div class="control">
-          <label for="sortFilter">Sort</label>
-          <div class="select-wrap">
-            <select id="sortFilter" aria-label="Sort resources">
-              <option value="year-desc">Sort by newest year</option>
-              <option value="title-asc">Sort alphabetically</option>
-              <option value="author-asc">Sort by author</option>
-              <option value="year-asc">Sort by oldest year</option>
-            </select>
-            <span class="select-icon">▼</span>
+      </section>
+
+      <section class="eia-section" aria-label="Economic impact areas">
+        <h2 class="eia-heading">Economic Impact Areas</h2>
+        <div id="economicPills" class="eia-pills" role="tablist" aria-label="Filter by economic impact area"></div>
+      </section>
+
+      <section class="filters-section" aria-label="Optional filters">
+        <h2 class="filters-heading">Filters</h2>
+        <div class="controls">
+          <div class="control">
+            <label for="typeFilter">Category Headers</label>
+            <div class="select-wrap">
+              <select id="typeFilter" aria-label="Category headers"></select>
+              <span class="select-icon">▼</span>
+            </div>
           </div>
-        </div>
-        <div class="search-actions">
-          <button id="resetFiltersButton" class="reset-button" type="button" aria-label="Reset all filters">Reset</button>
+
+          <div class="control">
+            <label for="demographicFilter">Demographic Analysis Included</label>
+            <div class="multi-select" id="demographicFilter">
+              <button class="multi-select-button" type="button" aria-label="Demographic analysis included">All</button>
+              <span class="select-icon">▼</span>
+              <div class="multi-select-panel"></div>
+            </div>
+          </div>
+
+          <div class="control">
+            <label for="geographicFilter">Geographic Focus of the Publication</label>
+            <div class="multi-select" id="geographicFilter">
+              <button class="multi-select-button" type="button" aria-label="Geographic focus">All</button>
+              <span class="select-icon">▼</span>
+              <div class="multi-select-panel"></div>
+            </div>
+          </div>
+
+          <div class="control">
+            <label for="populationFilter">Special Populations Covered</label>
+            <div class="multi-select" id="populationFilter">
+              <button class="multi-select-button" type="button" aria-label="Special populations covered">All</button>
+              <span class="select-icon">▼</span>
+              <div class="multi-select-panel"></div>
+            </div>
+          </div>
+
+          <div class="control">
+            <label for="publicationFormatFilter">Publication Format</label>
+            <div class="multi-select" id="publicationFormatFilter">
+              <button class="multi-select-button" type="button" aria-label="Publication format">All</button>
+              <span class="select-icon">▼</span>
+              <div class="multi-select-panel"></div>
+            </div>
+          </div>
+
+          <div class="control">
+            <label for="useCaseFilter">Use Case</label>
+            <div class="multi-select" id="useCaseFilter">
+              <button class="multi-select-button" type="button" aria-label="Use case">All</button>
+              <span class="select-icon">▼</span>
+              <div class="multi-select-panel"></div>
+            </div>
+          </div>
+
+          <div class="control">
+            <label for="sortFilter">Sort</label>
+            <div class="select-wrap">
+              <select id="sortFilter" aria-label="Sort resources">
+                <option value="year-desc">Sort by newest year</option>
+                <option value="title-asc">Sort alphabetically</option>
+                <option value="author-asc">Sort by author</option>
+                <option value="year-asc">Sort by oldest year</option>
+              </select>
+              <span class="select-icon">▼</span>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section class="controls" aria-label="Filters and sorting">
-        <div class="control">
-          <label for="typeFilter">Category Headers</label>
-          <div class="select-wrap">
-            <select id="typeFilter" aria-label="Filter by type"></select>
-            <span class="select-icon">▼</span>
-          </div>
-        </div>
+      <div id="activeFiltersBar" class="active-filters-bar" aria-label="Active filters">
+        <span class="active-filters-label">Active</span>
+        <div id="activeFilterChips" class="filter-chip-list"></div>
+        <button id="resetFiltersButton" class="reset-button" type="button" aria-label="Reset all filters">Reset</button>
+      </div>
 
-        <div class="control">
-          <label for="authorTypeFilter">Authors Type</label>
-          <div class="multi-select" id="authorTypeFilter">
-            <button class="multi-select-button" type="button" aria-label="Authors type">All author types</button>
-            <span class="select-icon">▼</span>
-            <div class="multi-select-panel"></div>
-          </div>
-        </div>
-
-        <div class="control">
-          <label for="demographicFilter">Demographic Analysis Included</label>
-          <div class="multi-select" id="demographicFilter">
-            <button class="multi-select-button" type="button" aria-label="Demographic analysis included">All demographic tags</button>
-            <span class="select-icon">▼</span>
-            <div class="multi-select-panel"></div>
-          </div>
-        </div>
-
-        <div class="control">
-          <label for="geographicFilter">Geographic Focus of the Publication</label>
-          <div class="multi-select" id="geographicFilter">
-            <button class="multi-select-button" type="button" aria-label="Geographic focus of the publication">All geographies</button>
-            <span class="select-icon">▼</span>
-            <div class="multi-select-panel"></div>
-          </div>
-        </div>
-
-      </section>
-
-      <section id="subtypePanel" class="subtype-panel" aria-label="Subtype filters">
+      <section id="subtypePanel" class="subtype-panel" aria-label="Category refinements">
         <div class="subtype-label">Categories</div>
         <div id="bubbleList" class="bubble-list"></div>
         <div class="subtype-help">
@@ -1040,7 +1168,6 @@
 
     const typeOptions = [
       "All Resources",
-      "Economic Impact Areas",
       "Special Populations Covered",
       "Publication Format",
       "Use Case"
@@ -1073,9 +1200,12 @@
       search: "",
       type: "All Resources",
       selectedSubtypes: [],
-      authorTypes: [],
+      economicImpact: "",
       demographics: [],
       geographies: [],
+      populations: [],
+      publicationFormats: [],
+      useCases: [],
       sort: "year-desc",
       page: 1,
       perPage: 8,
@@ -1086,15 +1216,23 @@
     const searchInput = document.getElementById("searchInput");
     const resetFiltersButton = document.getElementById("resetFiltersButton");
     const typeFilter = document.getElementById("typeFilter");
-    const authorTypeFilter = document.getElementById("authorTypeFilter");
+    const economicPillsEl = document.getElementById("economicPills");
+    const activeFilterChips = document.getElementById("activeFilterChips");
     const demographicFilter = document.getElementById("demographicFilter");
     const geographicFilter = document.getElementById("geographicFilter");
-    const authorTypeButton = authorTypeFilter.querySelector(".multi-select-button");
+    const populationFilter = document.getElementById("populationFilter");
+    const publicationFormatFilter = document.getElementById("publicationFormatFilter");
+    const useCaseFilter = document.getElementById("useCaseFilter");
     const demographicButton = demographicFilter.querySelector(".multi-select-button");
     const geographicButton = geographicFilter.querySelector(".multi-select-button");
-    const authorTypePanel = authorTypeFilter.querySelector(".multi-select-panel");
+    const populationButton = populationFilter.querySelector(".multi-select-button");
+    const publicationFormatButton = publicationFormatFilter.querySelector(".multi-select-button");
+    const useCaseButton = useCaseFilter.querySelector(".multi-select-button");
     const demographicPanel = demographicFilter.querySelector(".multi-select-panel");
     const geographicPanel = geographicFilter.querySelector(".multi-select-panel");
+    const populationPanel = populationFilter.querySelector(".multi-select-panel");
+    const publicationFormatPanel = publicationFormatFilter.querySelector(".multi-select-panel");
+    const useCasePanel = useCaseFilter.querySelector(".multi-select-panel");
     const sortFilter = document.getElementById("sortFilter");
     const list = document.getElementById("list");
     const pagination = document.getElementById("pagination");
@@ -1117,8 +1255,116 @@
       contact: document.getElementById("contactPage")
     };
 
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
     function uniqueValues(values) {
       return [...new Set(values)].filter(Boolean).sort((a, b) => a.localeCompare(b));
+    }
+
+    function renderEconomicPills() {
+      economicPillsEl.innerHTML = "";
+      const allBtn = document.createElement("button");
+      allBtn.type = "button";
+      allBtn.className = "eia-pill" + (state.economicImpact === "" ? " active" : "");
+      allBtn.textContent = "All Areas";
+      allBtn.addEventListener("click", () => {
+        state.economicImpact = "";
+        state.page = 1;
+        state.openKey = null;
+        renderEconomicPills();
+        renderList();
+      });
+      economicPillsEl.appendChild(allBtn);
+
+      (subtypeMap["Economic Impact Areas"] || []).forEach(label => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "eia-pill" + (state.economicImpact === label ? " active" : "");
+        b.textContent = label;
+        b.addEventListener("click", () => {
+          state.economicImpact = label;
+          state.page = 1;
+          state.openKey = null;
+          renderEconomicPills();
+          renderList();
+        });
+        economicPillsEl.appendChild(b);
+      });
+    }
+
+    function renderActiveFilterChips() {
+      const chips = [];
+      if (state.economicImpact) {
+        chips.push(`
+          <span class="filter-chip">
+            <span>Economic Impact: ${escapeHtml(state.economicImpact)}</span>
+            <button type="button" class="filter-chip-remove" aria-label="Remove economic impact filter" data-chip-kind="economic" data-chip-value="">×</button>
+          </span>
+        `);
+      }
+      state.demographics.forEach(value => {
+        chips.push(`
+          <span class="filter-chip">
+            <span>Demographic: ${escapeHtml(value)}</span>
+            <button type="button" class="filter-chip-remove" aria-label="Remove filter" data-chip-kind="demographic" data-chip-value="${escapeHtml(value)}">×</button>
+          </span>
+        `);
+      });
+      state.geographies.forEach(value => {
+        chips.push(`
+          <span class="filter-chip">
+            <span>Geographic: ${escapeHtml(value)}</span>
+            <button type="button" class="filter-chip-remove" aria-label="Remove filter" data-chip-kind="geographic" data-chip-value="${escapeHtml(value)}">×</button>
+          </span>
+        `);
+      });
+      state.populations.forEach(value => {
+        chips.push(`
+          <span class="filter-chip">
+            <span>Population: ${escapeHtml(value)}</span>
+            <button type="button" class="filter-chip-remove" aria-label="Remove filter" data-chip-kind="population" data-chip-value="${escapeHtml(value)}">×</button>
+          </span>
+        `);
+      });
+      state.publicationFormats.forEach(value => {
+        chips.push(`
+          <span class="filter-chip">
+            <span>Format: ${escapeHtml(value)}</span>
+            <button type="button" class="filter-chip-remove" aria-label="Remove filter" data-chip-kind="publicationFormat" data-chip-value="${escapeHtml(value)}">×</button>
+          </span>
+        `);
+      });
+      state.useCases.forEach(value => {
+        chips.push(`
+          <span class="filter-chip">
+            <span>Use case: ${escapeHtml(value)}</span>
+            <button type="button" class="filter-chip-remove" aria-label="Remove filter" data-chip-kind="useCase" data-chip-value="${escapeHtml(value)}">×</button>
+          </span>
+        `);
+      });
+      if (state.type !== "All Resources") {
+        chips.push(`
+          <span class="filter-chip">
+            <span>Category header: ${escapeHtml(state.type)}</span>
+            <button type="button" class="filter-chip-remove" aria-label="Remove category header filter" data-chip-kind="type" data-chip-value="">×</button>
+          </span>
+        `);
+      }
+      state.selectedSubtypes.forEach(value => {
+        chips.push(`
+          <span class="filter-chip">
+            <span>Category: ${escapeHtml(value)}</span>
+            <button type="button" class="filter-chip-remove" aria-label="Remove category filter" data-chip-kind="subtype" data-chip-value="${escapeHtml(value)}">×</button>
+          </span>
+        `);
+      });
+      activeFilterChips.innerHTML = chips.length ? chips.join("") : `<span style="color:var(--muted);font-family:'League Spartan',Arial,sans-serif;font-size:14px;">No active filters</span>`;
     }
 
     function fillTypeFilter() {
@@ -1156,25 +1402,39 @@
 
     function fillAuxiliaryFilters() {
       renderMultiSelect(
-        authorTypePanel,
-        authorTypeButton,
-        subtypeMap["Author Type"] || [],
-        state.authorTypes,
-        "All author types"
-      );
-      renderMultiSelect(
         demographicPanel,
         demographicButton,
         subtypeMap["Demographic Analysis Included"] || [],
         state.demographics,
-        "All demographic tags"
+        "All"
       );
       renderMultiSelect(
         geographicPanel,
         geographicButton,
         subtypeMap["Geographic Focus of the Publication"] || [],
         state.geographies,
-        "All geographies"
+        "All"
+      );
+      renderMultiSelect(
+        populationPanel,
+        populationButton,
+        subtypeMap["Special Populations Covered"] || [],
+        state.populations,
+        "All"
+      );
+      renderMultiSelect(
+        publicationFormatPanel,
+        publicationFormatButton,
+        subtypeMap["Publication Format"] || [],
+        state.publicationFormats,
+        "All"
+      );
+      renderMultiSelect(
+        useCasePanel,
+        useCaseButton,
+        subtypeMap["Use Case"] || [],
+        state.useCases,
+        "All"
       );
     }
 
@@ -1240,15 +1500,23 @@
         ].join(" ").toLowerCase();
 
         const matchesSearch = !state.search || haystack.includes(state.search.toLowerCase());
-        const itemAuthorTypes = item.tags["Author Type"] || [];
+        const itemEconomic = item.tags["Economic Impact Areas"] || [];
+        const matchesEconomic = !state.economicImpact || itemEconomic.includes(state.economicImpact);
         const itemDemographics = item.tags["Demographic Analysis Included"] || [];
         const itemGeographies = item.tags["Geographic Focus of the Publication"] || [];
-        const matchesAuthorType = state.authorTypes.length === 0 || state.authorTypes.some(value => itemAuthorTypes.includes(value));
+        const itemPopulations = item.tags["Special Populations Covered"] || [];
+        const itemFormats = item.tags["Publication Format"] || [];
+        const itemUseCases = item.tags["Use Case"] || [];
         const matchesDemographic = state.demographics.length === 0 || state.demographics.some(value => itemDemographics.includes(value));
         const matchesGeographic = state.geographies.length === 0 || state.geographies.some(value => itemGeographies.includes(value));
+        const matchesPopulation = state.populations.length === 0 || state.populations.some(value => itemPopulations.includes(value));
+        const matchesPublicationFormat = state.publicationFormats.length === 0 || state.publicationFormats.some(value => itemFormats.includes(value));
+        const matchesUseCase = state.useCases.length === 0 || state.useCases.some(value => itemUseCases.includes(value));
+
+        const matchesAuxiliary = matchesEconomic && matchesDemographic && matchesGeographic && matchesPopulation && matchesPublicationFormat && matchesUseCase;
 
         if (state.type === "All Resources") {
-          return matchesSearch && matchesAuthorType && matchesDemographic && matchesGeographic;
+          return matchesSearch && matchesAuxiliary;
         }
 
         const matchesType = tagsForSelectedType.length > 0;
@@ -1256,7 +1524,7 @@
           ? true
           : state.selectedSubtypes.some(subtype => tagsForSelectedType.includes(subtype));
 
-        return matchesSearch && matchesAuthorType && matchesDemographic && matchesGeographic && matchesType && matchesSubtype;
+        return matchesSearch && matchesAuxiliary && matchesType && matchesSubtype;
       });
 
       return sortResources(filtered);
@@ -1295,9 +1563,12 @@
       state.search = "";
       state.type = "All Resources";
       state.selectedSubtypes = [];
-      state.authorTypes = [];
+      state.economicImpact = "";
       state.demographics = [];
       state.geographies = [];
+      state.populations = [];
+      state.publicationFormats = [];
+      state.useCases = [];
       state.sort = "year-desc";
       state.page = 1;
       state.openKey = null;
@@ -1306,6 +1577,7 @@
       sortFilter.value = "year-desc";
       fillTypeFilter();
       fillAuxiliaryFilters();
+      renderEconomicPills();
       renderSubtypeBubbles();
       renderList();
     }
@@ -1352,6 +1624,7 @@
 
       attachToggleHandlers();
       renderPagination(totalPages, filtered.length);
+      renderActiveFilterChips();
     }
 
     function attachToggleHandlers() {
@@ -1454,7 +1727,7 @@
       renderList();
     });
 
-    [authorTypeFilter, demographicFilter, geographicFilter].forEach(filterEl => {
+    [demographicFilter, geographicFilter, populationFilter, publicationFormatFilter, useCaseFilter].forEach(filterEl => {
       const button = filterEl.querySelector(".multi-select-button");
       button.addEventListener("click", event => {
         event.stopPropagation();
@@ -1473,8 +1746,46 @@
 
     resetFiltersButton.addEventListener("click", resetFilters);
 
+    activeFilterChips.addEventListener("click", event => {
+      const btn = event.target.closest(".filter-chip-remove");
+      if (!btn) return;
+      const kind = btn.dataset.chipKind;
+      const value = btn.dataset.chipValue || "";
+      if (kind === "economic") {
+        state.economicImpact = "";
+        renderEconomicPills();
+      } else if (kind === "demographic") {
+        state.demographics = state.demographics.filter(v => v !== value);
+        fillAuxiliaryFilters();
+      } else if (kind === "geographic") {
+        state.geographies = state.geographies.filter(v => v !== value);
+        fillAuxiliaryFilters();
+      } else if (kind === "population") {
+        state.populations = state.populations.filter(v => v !== value);
+        fillAuxiliaryFilters();
+      } else if (kind === "publicationFormat") {
+        state.publicationFormats = state.publicationFormats.filter(v => v !== value);
+        fillAuxiliaryFilters();
+      } else if (kind === "useCase") {
+        state.useCases = state.useCases.filter(v => v !== value);
+        fillAuxiliaryFilters();
+      } else if (kind === "type") {
+        state.type = "All Resources";
+        state.selectedSubtypes = [];
+        fillTypeFilter();
+        renderSubtypeBubbles();
+      } else if (kind === "subtype") {
+        state.selectedSubtypes = state.selectedSubtypes.filter(v => v !== value);
+        renderSubtypeBubbles();
+      }
+      state.page = 1;
+      state.openKey = null;
+      renderList();
+    });
+
     fillTypeFilter();
     fillAuxiliaryFilters();
+    renderEconomicPills();
     setActivePage("about");
     renderSubtypeBubbles();
     renderList();
