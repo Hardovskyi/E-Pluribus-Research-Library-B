@@ -19,6 +19,9 @@
       --muted: #5e6d78;
       --line: #d6d2c9;
       --white: #ffffff;
+      --layout-gutter: 40px;
+      --layout-wide-max: 1360px;
+      --layout-filters-max: 1160px;
     }
 
     * { box-sizing: border-box; }
@@ -38,9 +41,8 @@
       z-index: 20;
     }
 
-    .topbar-inner,
-    .page {
-      width: min(1120px, calc(100vw - 32px));
+    .topbar-inner {
+      width: min(var(--layout-wide-max), calc(100vw - var(--layout-gutter)));
       margin: 0 auto;
     }
 
@@ -153,7 +155,22 @@
     }
 
     .page {
+      width: 100%;
+      max-width: none;
+      margin: 0;
       padding: 28px 0 56px;
+    }
+
+    .layout-wide {
+      width: min(var(--layout-wide-max), calc(100vw - var(--layout-gutter)));
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .layout-filters {
+      width: min(var(--layout-filters-max), calc(100vw - var(--layout-gutter)));
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .page-header {
@@ -187,7 +204,7 @@
 
     .intro {
       margin: 0;
-      max-width: 760px;
+      max-width: min(900px, 100%);
       color: rgba(255,255,255,0.95);
       font-size: 15px;
       line-height: 1.65;
@@ -199,6 +216,36 @@
 
     .content-section.active {
       display: block;
+    }
+
+    .layout-filters .eia-heading {
+      font-size: 19px;
+    }
+
+    .layout-filters .eia-pill {
+      font-size: 16px;
+    }
+
+    .layout-filters .filters-heading {
+      font-size: 17px;
+    }
+
+    .layout-filters .control label {
+      font-size: 17px;
+    }
+
+    .layout-filters input[type="search"],
+    .layout-filters .multi-select-button,
+    .layout-filters select {
+      font-size: 20px;
+    }
+
+    .layout-filters .multi-option {
+      font-size: 17px;
+    }
+
+    .layout-filters .filter-chip {
+      font-size: 15px;
     }
 
     .search-row {
@@ -284,6 +331,7 @@
       align-items: center;
       gap: 10px 12px;
       margin-bottom: 20px;
+      min-height: 0;
     }
 
     .filter-chip-list {
@@ -339,6 +387,13 @@
       border-radius: 999px;
       transition: border-color 0.2s ease, color 0.2s ease;
       flex-shrink: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .reset-button.is-visible {
+      display: inline-flex;
     }
 
     .reset-button:hover {
@@ -749,6 +804,10 @@
     }
 
     @media (max-width: 760px) {
+      :root {
+        --layout-gutter: 24px;
+      }
+
       .contact-grid {
         grid-template-columns: 1fr;
       }
@@ -793,150 +852,158 @@
   </div>
 
   <main class="page">
-    <header class="page-header">
-      <div class="eyebrow" id="pageEyebrow">About</div>
-      <h1 id="pageTitle">About</h1>
-      <p class="intro" id="pageIntro">
-        Learn more about the purpose of this library and the broader work supporting immigrant inclusion and thriving communities.
-      </p>
-    </header>
+    <div class="layout-wide">
+      <header class="page-header">
+        <div class="eyebrow" id="pageEyebrow">About</div>
+        <h1 id="pageTitle">About</h1>
+        <p class="intro" id="pageIntro">
+          Learn more about the purpose of this library and the broader work supporting immigrant inclusion and thriving communities.
+        </p>
+      </header>
+    </div>
 
     <section id="resourcesPage" class="content-section" aria-label="Resources page">
-      <section class="search-row" aria-label="Keyword search">
-        <div class="control">
-          <label for="searchInput">Search</label>
-          <div class="search-wrap">
-            <input id="searchInput" type="search" placeholder="Search resources by keyword, topic, or organization…" aria-label="Search resources" />
-            <span class="search-icon">⌕</span>
+      <div class="layout-filters">
+        <section class="search-row" aria-label="Keyword search">
+          <div class="control">
+            <label for="searchInput">Search</label>
+            <div class="search-wrap">
+              <input id="searchInput" type="search" placeholder="Search resources by keyword, topic, or organization…" aria-label="Search resources" />
+              <span class="search-icon">⌕</span>
+            </div>
           </div>
+        </section>
+
+        <section class="eia-section" aria-label="Economic impact areas">
+          <h2 class="eia-heading">Economic Impact Areas</h2>
+          <div id="economicPills" class="eia-pills" role="tablist" aria-label="Filter by economic impact area"></div>
+        </section>
+
+        <section class="filters-section" aria-label="Optional filters">
+          <h2 class="filters-heading">Filters</h2>
+          <div class="controls">
+            <div class="control">
+              <label for="demographicFilter">Demographic Analysis Included</label>
+              <div class="multi-select" id="demographicFilter">
+                <button class="multi-select-button" type="button" aria-label="Demographic analysis included">All</button>
+                <span class="select-icon">▼</span>
+                <div class="multi-select-panel"></div>
+              </div>
+            </div>
+
+            <div class="control">
+              <label for="geographicFilter">Geographic Focus of the Publication</label>
+              <div class="multi-select" id="geographicFilter">
+                <button class="multi-select-button" type="button" aria-label="Geographic focus">All</button>
+                <span class="select-icon">▼</span>
+                <div class="multi-select-panel"></div>
+              </div>
+            </div>
+
+            <div class="control">
+              <label for="populationFilter">Special Populations Covered</label>
+              <div class="multi-select" id="populationFilter">
+                <button class="multi-select-button" type="button" aria-label="Special populations covered">All</button>
+                <span class="select-icon">▼</span>
+                <div class="multi-select-panel"></div>
+              </div>
+            </div>
+
+            <div class="control">
+              <label for="publicationFormatFilter">Publication Format</label>
+              <div class="multi-select" id="publicationFormatFilter">
+                <button class="multi-select-button" type="button" aria-label="Publication format">All</button>
+                <span class="select-icon">▼</span>
+                <div class="multi-select-panel"></div>
+              </div>
+            </div>
+
+            <div class="control">
+              <label for="useCaseFilter">Use Case</label>
+              <div class="multi-select" id="useCaseFilter">
+                <button class="multi-select-button" type="button" aria-label="Use case">All</button>
+                <span class="select-icon">▼</span>
+                <div class="multi-select-panel"></div>
+              </div>
+            </div>
+
+            <div class="control">
+              <label for="sortFilter">Sort</label>
+              <div class="select-wrap">
+                <select id="sortFilter" aria-label="Sort resources">
+                  <option value="year-desc">Sort by newest year</option>
+                  <option value="title-asc">Sort alphabetically</option>
+                  <option value="author-asc">Sort by author</option>
+                  <option value="year-asc">Sort by oldest year</option>
+                </select>
+                <span class="select-icon">▼</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div id="activeFiltersBar" class="active-filters-bar" aria-label="Applied filters">
+          <div id="activeFilterChips" class="filter-chip-list"></div>
+          <button id="resetFiltersButton" class="reset-button" type="button" aria-label="Reset all filters">Reset</button>
         </div>
-      </section>
-
-      <section class="eia-section" aria-label="Economic impact areas">
-        <h2 class="eia-heading">Economic Impact Areas</h2>
-        <div id="economicPills" class="eia-pills" role="tablist" aria-label="Filter by economic impact area"></div>
-      </section>
-
-      <section class="filters-section" aria-label="Optional filters">
-        <h2 class="filters-heading">Filters</h2>
-        <div class="controls">
-          <div class="control">
-            <label for="demographicFilter">Demographic Analysis Included</label>
-            <div class="multi-select" id="demographicFilter">
-              <button class="multi-select-button" type="button" aria-label="Demographic analysis included">All</button>
-              <span class="select-icon">▼</span>
-              <div class="multi-select-panel"></div>
-            </div>
-          </div>
-
-          <div class="control">
-            <label for="geographicFilter">Geographic Focus of the Publication</label>
-            <div class="multi-select" id="geographicFilter">
-              <button class="multi-select-button" type="button" aria-label="Geographic focus">All</button>
-              <span class="select-icon">▼</span>
-              <div class="multi-select-panel"></div>
-            </div>
-          </div>
-
-          <div class="control">
-            <label for="populationFilter">Special Populations Covered</label>
-            <div class="multi-select" id="populationFilter">
-              <button class="multi-select-button" type="button" aria-label="Special populations covered">All</button>
-              <span class="select-icon">▼</span>
-              <div class="multi-select-panel"></div>
-            </div>
-          </div>
-
-          <div class="control">
-            <label for="publicationFormatFilter">Publication Format</label>
-            <div class="multi-select" id="publicationFormatFilter">
-              <button class="multi-select-button" type="button" aria-label="Publication format">All</button>
-              <span class="select-icon">▼</span>
-              <div class="multi-select-panel"></div>
-            </div>
-          </div>
-
-          <div class="control">
-            <label for="useCaseFilter">Use Case</label>
-            <div class="multi-select" id="useCaseFilter">
-              <button class="multi-select-button" type="button" aria-label="Use case">All</button>
-              <span class="select-icon">▼</span>
-              <div class="multi-select-panel"></div>
-            </div>
-          </div>
-
-          <div class="control">
-            <label for="sortFilter">Sort</label>
-            <div class="select-wrap">
-              <select id="sortFilter" aria-label="Sort resources">
-                <option value="year-desc">Sort by newest year</option>
-                <option value="title-asc">Sort alphabetically</option>
-                <option value="author-asc">Sort by author</option>
-                <option value="year-asc">Sort by oldest year</option>
-              </select>
-              <span class="select-icon">▼</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div id="activeFiltersBar" class="active-filters-bar" aria-label="Applied filters">
-        <div id="activeFilterChips" class="filter-chip-list"></div>
-        <button id="resetFiltersButton" class="reset-button" type="button" aria-label="Reset all filters">Reset</button>
       </div>
 
-      <div class="results-meta">
-        <div id="resultsCount">0 results</div>
-        <div id="pageInfo"></div>
-      </div>
+      <div class="layout-wide">
+        <div class="results-meta">
+          <div id="resultsCount">0 results</div>
+          <div id="pageInfo"></div>
+        </div>
 
-      <section id="list" class="list" aria-live="polite"></section>
-      <nav id="pagination" class="pagination" aria-label="Pagination"></nav>
+        <section id="list" class="list" aria-live="polite"></section>
+        <nav id="pagination" class="pagination" aria-label="Pagination"></nav>
+      </div>
     </section>
 
-    <section id="aboutPage" class="content-section active" aria-label="About us page">
-      <div class="placeholder-page">
-        <div class="placeholder-kicker">About</div>
-        <h2 class="placeholder-title">About</h2>
-        <p class="placeholder-text">
-          This page is currently a placeholder for the prototype. It can later introduce the organization, explain the purpose of the library, and describe how these resources support immigrant inclusion, economic development, and community research.
+    <div class="layout-wide">
+      <section id="aboutPage" class="content-section active" aria-label="About us page">
+        <div class="placeholder-page">
+          <div class="placeholder-kicker">About</div>
+          <h2 class="placeholder-title">About</h2>
+          <p class="placeholder-text">
+            This page is currently a placeholder for the prototype. It can later introduce the organization, explain the purpose of the library, and describe how these resources support immigrant inclusion, economic development, and community research.
+          </p>
+        </div>
+      </section>
+
+      <section id="eventsPage" class="content-section" aria-label="Events page">
+        <div class="placeholder-page">
+          <div class="placeholder-kicker">Events</div>
+          <h2 class="placeholder-title">Events</h2>
+          <p class="placeholder-text">
+            This page is currently a placeholder for the prototype. It can later include upcoming events, convenings, workshops, webinars, and public programs related to immigrant inclusion and community engagement.
+          </p>
+        </div>
+      </section>
+
+      <section id="contactPage" class="content-section" aria-label="Contact us page"></section>
+
+      <section class="contact-panel" aria-label="Contact information">
+        <div class="contact-kicker">Contact</div>
+        <h2 class="contact-title">Stay Up To Date</h2>
+        <p class="contact-text">
+          Placeholder contact section for the prototype. Replace these details with the final team contact, submissions email, and support information once the library is ready to launch.
         </p>
-      </div>
-    </section>
-
-    <section id="eventsPage" class="content-section" aria-label="Events page">
-      <div class="placeholder-page">
-        <div class="placeholder-kicker">Events</div>
-        <h2 class="placeholder-title">Events</h2>
-        <p class="placeholder-text">
-          This page is currently a placeholder for the prototype. It can later include upcoming events, convenings, workshops, webinars, and public programs related to immigrant inclusion and community engagement.
-        </p>
-      </div>
-    </section>
-
-    <section id="contactPage" class="content-section" aria-label="Contact us page"></section>
-
-    <section class="contact-panel" aria-label="Contact information">
-      <div class="contact-kicker">Contact</div>
-      <h2 class="contact-title">Stay Up To Date</h2>
-      <p class="contact-text">
-        Placeholder contact section for the prototype. Replace these details with the final team contact, submissions email, and support information once the library is ready to launch.
-      </p>
-      <div class="contact-grid">
-        <div class="contact-card">
-          <div class="contact-label">General inquiries</div>
-          <div class="contact-value"><a href="mailto:researchlibrary@example.org">researchlibrary@example.org</a></div>
+        <div class="contact-grid">
+          <div class="contact-card">
+            <div class="contact-label">General inquiries</div>
+            <div class="contact-value"><a href="mailto:researchlibrary@example.org">researchlibrary@example.org</a></div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-label">Partnerships</div>
+            <div class="contact-value"><a href="mailto:partnerships@example.org">partnerships@example.org</a></div>
+          </div>
+          <div class="contact-card">
+            <div class="contact-label">Office hours</div>
+            <div class="contact-value">Mon–Fri<br>9:00 AM–5:00 PM EST</div>
+          </div>
         </div>
-        <div class="contact-card">
-          <div class="contact-label">Partnerships</div>
-          <div class="contact-value"><a href="mailto:partnerships@example.org">partnerships@example.org</a></div>
-        </div>
-        <div class="contact-card">
-          <div class="contact-label">Office hours</div>
-          <div class="contact-value">Mon–Fri<br>9:00 AM–5:00 PM EST</div>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </main>
 
   <script>
@@ -1214,6 +1281,23 @@
       });
     }
 
+    function hasResettableFilters() {
+      return Boolean(
+        state.search.trim() ||
+        state.economicImpact ||
+        state.demographics.length ||
+        state.geographies.length ||
+        state.populations.length ||
+        state.publicationFormats.length ||
+        state.useCases.length ||
+        state.sort !== "year-desc"
+      );
+    }
+
+    function updateResetButtonVisibility() {
+      resetFiltersButton.classList.toggle("is-visible", hasResettableFilters());
+    }
+
     function renderActiveFilterChips() {
       const chips = [];
       if (state.economicImpact) {
@@ -1264,7 +1348,35 @@
           </span>
         `);
       });
-      activeFilterChips.innerHTML = chips.length ? chips.join("") : `<span style="color:var(--muted);font-family:'League Spartan',Arial,sans-serif;font-size:14px;">No filters applied</span>`;
+
+      const q = state.search.trim();
+      if (q.length) {
+        const short = q.length > 42 ? `${q.slice(0, 39)}…` : q;
+        chips.push(`
+          <span class="filter-chip">
+            <span>Search: ${escapeHtml(short)}</span>
+            <button type="button" class="filter-chip-remove" aria-label="Clear search" data-chip-kind="search" data-chip-value="">×</button>
+          </span>
+        `);
+      }
+
+      if (state.sort !== "year-desc") {
+        const sortLabels = {
+          "title-asc": "A–Z title",
+          "author-asc": "Author",
+          "year-asc": "Oldest year"
+        };
+        const sortLabel = sortLabels[state.sort] || state.sort;
+        chips.push(`
+          <span class="filter-chip">
+            <span>Sort: ${escapeHtml(sortLabel)}</span>
+            <button type="button" class="filter-chip-remove" aria-label="Reset sort order" data-chip-kind="sort" data-chip-value="">×</button>
+          </span>
+        `);
+      }
+
+      activeFilterChips.innerHTML = chips.join("");
+      updateResetButtonVisibility();
     }
 
     function renderMultiSelect(panelEl, buttonEl, options, selectedValues, emptyLabel) {
@@ -1606,6 +1718,12 @@
       } else if (kind === "useCase") {
         state.useCases = state.useCases.filter(v => v !== value);
         fillAuxiliaryFilters();
+      } else if (kind === "search") {
+        state.search = "";
+        searchInput.value = "";
+      } else if (kind === "sort") {
+        state.sort = "year-desc";
+        sortFilter.value = "year-desc";
       }
       state.page = 1;
       state.openKey = null;
