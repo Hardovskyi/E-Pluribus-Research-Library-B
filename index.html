@@ -76,15 +76,18 @@
       gap: 24px;
     }
 
-    .site-brand {
-      margin: 0;
-      font-family: var(--font-ui);
-      font-size: 32px;
-      line-height: 1;
-      font-weight: 700;
-      letter-spacing: 0;
-      text-transform: none;
-      color: var(--navy);
+    .site-brand-link {
+      display: inline-flex;
+      align-items: center;
+      text-decoration: none;
+      line-height: 0;
+    }
+
+    .site-logo {
+      display: block;
+      height: 52px;
+      width: auto;
+      max-width: min(280px, 42vw);
     }
 
     .top-nav {
@@ -162,14 +165,13 @@
       margin-bottom: 24px;
     }
 
-    .hero-card.page-header {
-      background: var(--white);
+    .hero-band .page-header {
+      background: transparent;
       color: var(--text);
-      padding: 28px 32px 30px;
+      padding: 0;
       margin-bottom: 0;
-      border-radius: 12px;
-      border: 1px solid rgba(6, 47, 73, 0.08);
-      box-shadow: 0 8px 24px rgba(6, 47, 73, 0.08);
+      border: none;
+      box-shadow: none;
     }
 
     .layout-filters-stack {
@@ -278,8 +280,7 @@
       border: none;
     }
 
-    .btn-search,
-    .btn-apply {
+    .btn-search {
       height: 48px;
       padding: 0 22px;
       border: none;
@@ -293,8 +294,7 @@
       flex-shrink: 0;
     }
 
-    .btn-search:hover,
-    .btn-apply:hover {
+    .btn-search:hover {
       background: var(--teal-dark);
     }
 
@@ -319,13 +319,6 @@
 
     .btn-reset-outline:hover {
       background: var(--filter-bg);
-    }
-
-    .filters-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      margin-top: 16px;
     }
 
     .search-panel .btn-reset-outline {
@@ -421,17 +414,6 @@
       border-top: 1px solid var(--line);
     }
 
-    .sort-row {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 18px 22px;
-      align-items: end;
-    }
-
-    .sort-row .controls {
-      margin-bottom: 0;
-    }
-
     .controls {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -444,81 +426,6 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
-    }
-
-    .active-filters-bar {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px 12px;
-      margin-bottom: 20px;
-      min-height: 0;
-    }
-
-    .filter-chip-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-      flex: 1;
-      min-width: 0;
-    }
-
-    .filter-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border: 1px solid var(--teal-bright);
-      background: var(--teal-light);
-      color: var(--white);
-      padding: 6px 14px 6px 16px;
-      border-radius: 999px;
-      font-family: var(--font-ui);
-      font-size: 14px;
-      font-weight: 500;
-      cursor: default;
-      max-width: 100%;
-    }
-
-    .filter-chip-remove {
-      border: none;
-      background: transparent;
-      color: var(--white);
-      font-size: 18px;
-      line-height: 1;
-      cursor: pointer;
-      padding: 0 2px;
-      font-weight: 600;
-    }
-
-    .filter-chip-remove:hover {
-      color: var(--filter-bg);
-    }
-
-    .reset-button {
-      height: 36px;
-      padding: 0 18px;
-      border: none;
-      background: transparent;
-      color: var(--navy);
-      font-family: var(--font-ui);
-      font-size: 16px;
-      font-weight: 500;
-      cursor: pointer;
-      border-radius: 999px;
-      transition: border-color 0.2s ease, color 0.2s ease;
-      flex-shrink: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .reset-button.is-visible {
-      display: inline-flex;
-    }
-
-    .reset-button:hover {
-      color: var(--teal-bright);
     }
 
     .control label {
@@ -696,9 +603,9 @@
       font-family: var(--font-ui);
       font-size: 12px;
       font-weight: 500;
-      color: var(--orange);
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
+      color: var(--muted);
+      letter-spacing: 0;
+      text-transform: none;
     }
 
     .resource-meta-tags {
@@ -723,7 +630,7 @@
       font-family: var(--font-ui);
       font-size: 16px;
       font-weight: 500;
-      color: var(--teal);
+      color: var(--muted);
     }
 
     .impact-tags {
@@ -745,7 +652,7 @@
     }
 
     .moreinfo-divider {
-      border-top: 1px solid var(--line);
+      border-top: 1px solid var(--teal-bright);
       margin: 14px 0 0;
     }
 
@@ -787,34 +694,29 @@
     }
 
     .details.open {
-      max-height: 900px;
-      margin-top: 14px;
+      max-height: 400px;
+      margin-top: 0;
     }
 
     .details-inner {
-      background: var(--filter-bg);
-      border-left: 4px solid var(--teal-bright);
-      padding: 16px 18px 14px;
-    }
-
-    .summary {
-      max-width: 860px;
-      color: var(--teal);
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 1.7;
-      margin: 0 0 12px;
+      background: transparent;
+      border: none;
+      padding: 10px 0 4px;
     }
 
     .tag-group {
-      margin-top: 10px;
+      margin-top: 12px;
+    }
+
+    .tag-group:first-child {
+      margin-top: 0;
     }
 
     .tag-group-title {
       font-family: var(--font-ui);
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 500;
-      color: var(--muted);
+      color: var(--teal-bright);
       text-transform: uppercase;
       letter-spacing: 0.06em;
       margin-bottom: 8px;
@@ -828,8 +730,8 @@
 
     .tag-pill {
       border: none;
-      background: var(--filter-bg);
-      color: var(--teal);
+      background: var(--grey-bg);
+      color: var(--title);
       padding: 6px 10px;
       border-radius: 999px;
       font-family: var(--font-ui);
@@ -839,7 +741,7 @@
 
     .tag-pill.muted {
       color: var(--muted);
-      background: rgba(255, 255, 255, 0.6);
+      background: var(--grey-bg);
     }
 
     .source-button {
@@ -885,18 +787,6 @@
         aspect-ratio: 1 / 1;
       }
 
-      .sort-row {
-        grid-template-columns: 1fr;
-      }
-
-      .filters-actions {
-        justify-content: stretch;
-      }
-
-      .filters-actions .btn-apply,
-      .filters-actions .btn-reset-outline {
-        flex: 1;
-      }
     }
 
     .pagination {
@@ -1094,7 +984,9 @@
 <body>
   <div class="topbar">
     <div class="topbar-inner">
-      <p class="site-brand">E Pluribus</p>
+      <a class="site-brand-link" href="#" aria-label="E Pluribus home">
+        <img class="site-logo" src="assets/e-pluribus-logo.png" alt="E Pluribus" />
+      </a>
       <nav class="top-nav" aria-label="Main navigation">
         <span class="nav-tab-disabled">About</span>
         <button class="nav-tab active" data-page="resources">Research</button>
@@ -1107,11 +999,11 @@
   <main class="page">
     <div class="hero-band">
       <div class="layout-wide">
-        <header class="hero-card page-header">
+        <header class="page-header">
           <div class="eyebrow" id="pageEyebrow">E Pluribus Research Library</div>
           <h1 id="pageTitle">Supporting you at the forefront of immigrant-inclusive economic development.</h1>
           <p class="intro" id="pageIntro">
-            A designated place for people to find and share research, reports, and practical resources on immigrant inclusion, workforce development, local economies, and thriving communities.
+            A designated place for people to find and share research, reports, and other resources related to immigrant inclusion, economic development, and international talent
           </p>
         </header>
       </div>
@@ -1187,35 +1079,20 @@
           </section>
 
           <section class="sort-section" aria-label="Sort resources">
-            <div class="sort-row">
-              <div>
-                <h2 class="sort-heading">Sort By</h2>
-                <div class="control">
-                  <label for="sortFilter" class="visually-hidden">Sort</label>
-                  <div class="select-wrap">
-                    <select id="sortFilter" aria-label="Sort resources">
-                      <option value="year-desc">Year (newest first)</option>
-                      <option value="title-asc">Title (A–Z)</option>
-                      <option value="author-asc">Author (A–Z)</option>
-                      <option value="year-asc">Year (oldest first)</option>
-                    </select>
-                    <span class="select-icon">▼</span>
-                  </div>
-                </div>
-              </div>
-              <div class="filters-actions">
-                <button id="applyFiltersButton" class="btn-apply" type="button">Apply</button>
-                <button id="filtersResetButton" class="btn-reset-outline" type="button">Reset</button>
+            <h2 class="sort-heading">Sort By</h2>
+            <div class="control">
+              <label for="sortFilter" class="visually-hidden">Sort</label>
+              <div class="select-wrap">
+                <select id="sortFilter" aria-label="Sort resources">
+                  <option value="year-desc">Year (newest first)</option>
+                  <option value="title-asc">Title (A–Z)</option>
+                  <option value="author-asc">Author (A–Z)</option>
+                  <option value="year-asc">Year (oldest first)</option>
+                </select>
+                <span class="select-icon">▼</span>
               </div>
             </div>
           </section>
-        </div>
-
-        <div class="layout-wide">
-          <div id="activeFiltersBar" class="active-filters-bar" aria-label="Applied filters">
-            <div id="activeFilterChips" class="filter-chip-list"></div>
-            <button id="resetFiltersButton" class="reset-button" type="button" aria-label="Reset all filters">Reset</button>
-          </div>
         </div>
       </div>
 
@@ -1538,23 +1415,10 @@ const resources = [
       activePage: "resources"
     };
 
-    const pending = {
-      demographics: [],
-      geographies: [],
-      populations: [],
-      publicationFormats: [],
-      useCases: [],
-      sort: "year-desc"
-    };
-
     const searchInput = document.getElementById("searchInput");
     const searchSubmitButton = document.getElementById("searchSubmitButton");
     const searchResetButton = document.getElementById("searchResetButton");
-    const applyFiltersButton = document.getElementById("applyFiltersButton");
-    const filtersResetButton = document.getElementById("filtersResetButton");
-    const resetFiltersButton = document.getElementById("resetFiltersButton");
     const economicPillsEl = document.getElementById("economicPills");
-    const activeFilterChips = document.getElementById("activeFilterChips");
     const demographicFilter = document.getElementById("demographicFilter");
     const geographicFilter = document.getElementById("geographicFilter");
     const populationFilter = document.getElementById("populationFilter");
@@ -1629,104 +1493,6 @@ const resources = [
       });
     }
 
-    function hasResettableFilters() {
-      return Boolean(
-        state.search.trim() ||
-        state.economicImpacts.length ||
-        state.demographics.length ||
-        state.geographies.length ||
-        state.populations.length ||
-        state.publicationFormats.length ||
-        state.useCases.length ||
-        state.sort !== "year-desc"
-      );
-    }
-
-    function updateResetButtonVisibility() {
-      resetFiltersButton.classList.toggle("is-visible", hasResettableFilters());
-    }
-
-    function renderActiveFilterChips() {
-      const chips = [];
-      state.economicImpacts.forEach(value => {
-        chips.push(`
-          <span class="filter-chip">
-            <span>Economic Impact: ${escapeHtml(value)}</span>
-            <button type="button" class="filter-chip-remove" aria-label="Remove filter" data-chip-kind="economic" data-chip-value="${escapeHtml(value)}">×</button>
-          </span>
-        `);
-      });
-      state.demographics.forEach(value => {
-        chips.push(`
-          <span class="filter-chip">
-            <span>Demographic: ${escapeHtml(value)}</span>
-            <button type="button" class="filter-chip-remove" aria-label="Remove filter" data-chip-kind="demographic" data-chip-value="${escapeHtml(value)}">×</button>
-          </span>
-        `);
-      });
-      state.geographies.forEach(value => {
-        chips.push(`
-          <span class="filter-chip">
-            <span>Geographic: ${escapeHtml(value)}</span>
-            <button type="button" class="filter-chip-remove" aria-label="Remove filter" data-chip-kind="geographic" data-chip-value="${escapeHtml(value)}">×</button>
-          </span>
-        `);
-      });
-      state.populations.forEach(value => {
-        chips.push(`
-          <span class="filter-chip">
-            <span>Population: ${escapeHtml(value)}</span>
-            <button type="button" class="filter-chip-remove" aria-label="Remove filter" data-chip-kind="population" data-chip-value="${escapeHtml(value)}">×</button>
-          </span>
-        `);
-      });
-      state.publicationFormats.forEach(value => {
-        chips.push(`
-          <span class="filter-chip">
-            <span>Format: ${escapeHtml(value)}</span>
-            <button type="button" class="filter-chip-remove" aria-label="Remove filter" data-chip-kind="publicationFormat" data-chip-value="${escapeHtml(value)}">×</button>
-          </span>
-        `);
-      });
-      state.useCases.forEach(value => {
-        chips.push(`
-          <span class="filter-chip">
-            <span>Use case: ${escapeHtml(value)}</span>
-            <button type="button" class="filter-chip-remove" aria-label="Remove filter" data-chip-kind="useCase" data-chip-value="${escapeHtml(value)}">×</button>
-          </span>
-        `);
-      });
-
-      const q = state.search.trim();
-      if (q.length) {
-        const short = q.length > 42 ? `${q.slice(0, 39)}…` : q;
-        chips.push(`
-          <span class="filter-chip">
-            <span>Search: ${escapeHtml(short)}</span>
-            <button type="button" class="filter-chip-remove" aria-label="Clear search" data-chip-kind="search" data-chip-value="">×</button>
-          </span>
-        `);
-      }
-
-      if (state.sort !== "year-desc") {
-        const sortLabels = {
-          "title-asc": "A–Z title",
-          "author-asc": "Author",
-          "year-asc": "Oldest year"
-        };
-        const sortLabel = sortLabels[state.sort] || state.sort;
-        chips.push(`
-          <span class="filter-chip">
-            <span>Sort: ${escapeHtml(sortLabel)}</span>
-            <button type="button" class="filter-chip-remove" aria-label="Reset sort order" data-chip-kind="sort" data-chip-value="">×</button>
-          </span>
-        `);
-      }
-
-      activeFilterChips.innerHTML = chips.join("");
-      updateResetButtonVisibility();
-    }
-
     function renderMultiSelect(panelEl, buttonEl, options, selectedValues, emptyLabel) {
       const count = selectedValues.length;
       buttonEl.textContent = count === 0 ? emptyLabel : `${count} selected`;
@@ -1746,7 +1512,10 @@ const resources = [
             const index = selectedValues.indexOf(value);
             if (index !== -1) selectedValues.splice(index, 1);
           }
+          state.page = 1;
+          state.openKey = null;
           renderMultiSelect(panelEl, buttonEl, options, selectedValues, emptyLabel);
+          renderList();
         });
       });
     }
@@ -1756,86 +1525,43 @@ const resources = [
         demographicPanel,
         demographicButton,
         subtypeMap["Demographic Analysis Included"] || [],
-        pending.demographics,
+        state.demographics,
         "All"
       );
       renderMultiSelect(
         geographicPanel,
         geographicButton,
         subtypeMap["Geographic Focus of the Publication"] || [],
-        pending.geographies,
+        state.geographies,
         "All"
       );
       renderMultiSelect(
         populationPanel,
         populationButton,
         subtypeMap["Special Populations Covered"] || [],
-        pending.populations,
+        state.populations,
         "All"
       );
       renderMultiSelect(
         publicationFormatPanel,
         publicationFormatButton,
         subtypeMap["Publication Format"] || [],
-        pending.publicationFormats,
+        state.publicationFormats,
         "All"
       );
       renderMultiSelect(
         useCasePanel,
         useCaseButton,
         subtypeMap["Use Case"] || [],
-        pending.useCases,
+        state.useCases,
         "All"
       );
-      sortFilter.value = pending.sort;
-    }
-
-    function applyPendingFilters() {
-      state.demographics = [...pending.demographics];
-      state.geographies = [...pending.geographies];
-      state.populations = [...pending.populations];
-      state.publicationFormats = [...pending.publicationFormats];
-      state.useCases = [...pending.useCases];
-      state.sort = pending.sort;
-      state.page = 1;
-      state.openKey = null;
-      renderList();
-    }
-
-    function resetPendingFilters() {
-      pending.demographics = [];
-      pending.geographies = [];
-      pending.populations = [];
-      pending.publicationFormats = [];
-      pending.useCases = [];
-      pending.sort = "year-desc";
-      state.demographics = [];
-      state.geographies = [];
-      state.populations = [];
-      state.publicationFormats = [];
-      state.useCases = [];
-      state.sort = "year-desc";
-      sortFilter.value = "year-desc";
-      fillAuxiliaryFilters();
-      state.page = 1;
-      state.openKey = null;
-      renderList();
     }
 
     function applySearchPanel() {
       state.search = searchInput.value.trim();
       state.page = 1;
       state.openKey = null;
-      renderList();
-    }
-
-    function resetSearchPanel() {
-      searchInput.value = "";
-      state.search = "";
-      state.economicImpacts = [];
-      state.page = 1;
-      state.openKey = null;
-      renderEconomicPills();
       renderList();
     }
 
@@ -1908,8 +1634,21 @@ const resources = [
     }
 
     function resetFilters() {
-      resetSearchPanel();
-      resetPendingFilters();
+      searchInput.value = "";
+      state.search = "";
+      state.economicImpacts = [];
+      state.demographics = [];
+      state.geographies = [];
+      state.populations = [];
+      state.publicationFormats = [];
+      state.useCases = [];
+      state.sort = "year-desc";
+      state.page = 1;
+      state.openKey = null;
+      sortFilter.value = "year-desc";
+      fillAuxiliaryFilters();
+      renderEconomicPills();
+      renderList();
     }
 
     function renderList() {
@@ -1933,10 +1672,10 @@ const resources = [
           const typeLabel = (item.tags["Publication Format"] || []).join(", ") || "—";
           const demographics = item.tags["Demographic Analysis Included"] || [];
           const geographies = item.tags["Geographic Focus of the Publication"] || [];
-          const populations = item.tags["Special Populations Covered"] || [];
           const useCases = item.tags["Use Case"] || [];
-          const metaParts = [...geographies, ...(typeLabel !== "—" ? typeLabel.split(", ").filter(Boolean) : [])];
-          const metaText = metaParts.length ? metaParts.join(" | ") : "";
+          const geoText = geographies.join(", ");
+          const formatText = typeLabel !== "—" ? typeLabel : "";
+          const metaText = [geoText, formatText].filter(Boolean).join(" | ");
           return `
             <article class="item">
               <div class="resource-card">
@@ -1959,36 +1698,6 @@ const resources = [
 
                   <div class="details ${isOpen ? "open" : ""}">
                     <div class="details-inner">
-                      <p class="summary"><strong>Summary</strong><br>${item.summary}</p>
-
-                      <div class="tag-group">
-                        <div class="tag-group-title">Demographic Analysis Included</div>
-                        <div class="tag-row">
-                          ${(demographics.length ? demographics : ["—"]).map(t => `<span class="tag-pill ${t === "—" ? "muted" : ""}">${t}</span>`).join("")}
-                        </div>
-                      </div>
-
-                      <div class="tag-group">
-                        <div class="tag-group-title">Geographic Focus of the Publication</div>
-                        <div class="tag-row">
-                          ${(geographies.length ? geographies : ["—"]).map(t => `<span class="tag-pill ${t === "—" ? "muted" : ""}">${t}</span>`).join("")}
-                        </div>
-                      </div>
-
-                      <div class="tag-group">
-                        <div class="tag-group-title">Special Populations Covered</div>
-                        <div class="tag-row">
-                          ${(populations.length ? populations : ["—"]).map(t => `<span class="tag-pill ${t === "—" ? "muted" : ""}">${t}</span>`).join("")}
-                        </div>
-                      </div>
-
-                      <div class="tag-group">
-                        <div class="tag-group-title">Publication Format</div>
-                        <div class="tag-row">
-                          ${(typeLabel !== "—" ? typeLabel.split(", ").filter(Boolean) : ["—"]).map(t => `<span class="tag-pill ${t === "—" ? "muted" : ""}">${t}</span>`).join("")}
-                        </div>
-                      </div>
-
                       <div class="tag-group">
                         <div class="tag-group-title">Use Case</div>
                         <div class="tag-row">
@@ -1996,6 +1705,12 @@ const resources = [
                         </div>
                       </div>
 
+                      <div class="tag-group">
+                        <div class="tag-group-title">Demographic Analysis Included</div>
+                        <div class="tag-row">
+                          ${(demographics.length ? demographics : ["—"]).map(t => `<span class="tag-pill ${t === "—" ? "muted" : ""}">${t}</span>`).join("")}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -2014,7 +1729,6 @@ const resources = [
 
       attachToggleHandlers();
       renderPagination(totalPages, filtered.length);
-      renderActiveFilterChips();
     }
 
     function attachToggleHandlers() {
@@ -2080,16 +1794,13 @@ const resources = [
     });
 
     searchSubmitButton.addEventListener("click", applySearchPanel);
-    searchResetButton.addEventListener("click", resetSearchPanel);
+    searchResetButton.addEventListener("click", resetFilters);
     searchInput.addEventListener("keydown", e => {
       if (e.key === "Enter") {
         e.preventDefault();
         applySearchPanel();
       }
     });
-
-    applyFiltersButton.addEventListener("click", applyPendingFilters);
-    filtersResetButton.addEventListener("click", resetPendingFilters);
 
     [demographicFilter, geographicFilter, populationFilter, publicationFormatFilter, useCaseFilter].forEach(filterEl => {
       const button = filterEl.querySelector(".multi-select-button");
@@ -2102,58 +1813,12 @@ const resources = [
     });
 
     sortFilter.addEventListener("change", e => {
-      pending.sort = e.target.value;
-    });
-
-    resetFiltersButton.addEventListener("click", resetFilters);
-
-    activeFilterChips.addEventListener("click", event => {
-      const btn = event.target.closest(".filter-chip-remove");
-      if (!btn) return;
-      const kind = btn.dataset.chipKind;
-      const value = btn.dataset.chipValue || "";
-      if (kind === "economic") {
-        state.economicImpacts = state.economicImpacts.filter(v => v !== value);
-        renderEconomicPills();
-      } else if (kind === "demographic") {
-        state.demographics = state.demographics.filter(v => v !== value);
-        pending.demographics = [...state.demographics];
-        fillAuxiliaryFilters();
-      } else if (kind === "geographic") {
-        state.geographies = state.geographies.filter(v => v !== value);
-        pending.geographies = [...state.geographies];
-        fillAuxiliaryFilters();
-      } else if (kind === "population") {
-        state.populations = state.populations.filter(v => v !== value);
-        pending.populations = [...state.populations];
-        fillAuxiliaryFilters();
-      } else if (kind === "publicationFormat") {
-        state.publicationFormats = state.publicationFormats.filter(v => v !== value);
-        pending.publicationFormats = [...state.publicationFormats];
-        fillAuxiliaryFilters();
-      } else if (kind === "useCase") {
-        state.useCases = state.useCases.filter(v => v !== value);
-        pending.useCases = [...state.useCases];
-        fillAuxiliaryFilters();
-      } else if (kind === "search") {
-        state.search = "";
-        searchInput.value = "";
-      } else if (kind === "sort") {
-        state.sort = "year-desc";
-        pending.sort = "year-desc";
-        sortFilter.value = "year-desc";
-      }
+      state.sort = e.target.value;
       state.page = 1;
       state.openKey = null;
       renderList();
     });
 
-    pending.demographics = [...state.demographics];
-    pending.geographies = [...state.geographies];
-    pending.populations = [...state.populations];
-    pending.publicationFormats = [...state.publicationFormats];
-    pending.useCases = [...state.useCases];
-    pending.sort = state.sort;
     fillAuxiliaryFilters();
     renderEconomicPills();
     setActivePage("resources");
