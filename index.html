@@ -428,6 +428,83 @@
       gap: 8px;
     }
 
+    .active-filters-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 12px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      min-height: 0;
+    }
+
+    .filter-chip-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--teal-bright);
+      background: var(--teal-light);
+      color: var(--white);
+      padding: 6px 14px 6px 16px;
+      border-radius: 999px;
+      font-family: var(--font-ui);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: default;
+      max-width: 100%;
+    }
+
+    .filter-chip-remove {
+      border: none;
+      background: transparent;
+      color: var(--white);
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0 2px;
+      font-weight: 600;
+    }
+
+    .filter-chip-remove:hover {
+      color: var(--filter-bg);
+    }
+
+    .selection-reset-button {
+      height: 36px;
+      padding: 0 18px;
+      border: 1px solid var(--teal-bright);
+      background: var(--white);
+      color: var(--navy);
+      font-family: var(--font-ui);
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      border-radius: 999px;
+      flex-shrink: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .selection-reset-button.is-visible {
+      display: inline-flex;
+    }
+
+    .selection-reset-button:hover {
+      background: var(--filter-bg);
+      color: var(--teal-bright);
+    }
+
     .control label {
       font-family: var(--font-ui);
       font-size: 16px;
@@ -702,6 +779,26 @@
       background: transparent;
       border: none;
       padding: 10px 0 4px;
+    }
+
+    .summary {
+      max-width: 860px;
+      color: var(--title);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.7;
+      margin: 0 0 14px;
+    }
+
+    .summary-label {
+      display: block;
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--teal-bright);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
     }
 
     .tag-group {
@@ -985,7 +1082,7 @@
   <div class="topbar">
     <div class="topbar-inner">
       <a class="site-brand-link" href="#" aria-label="E Pluribus home">
-        <img class="site-logo" src="assets/e-pluribus-logo.png" alt="E Pluribus" />
+        <img class="site-logo" src="./e-pluribus-logo.png" alt="E Pluribus" onerror="this.onerror=null;this.src='assets/e-pluribus-logo.png';" />
       </a>
       <nav class="top-nav" aria-label="Main navigation">
         <span class="nav-tab-disabled">About</span>
@@ -1093,6 +1190,11 @@
               </div>
             </div>
           </section>
+
+          <div id="activeFiltersBar" class="active-filters-bar" aria-label="Applied filters">
+            <div id="activeFilterChips" class="filter-chip-list"></div>
+            <button id="selectionResetButton" class="selection-reset-button" type="button" aria-label="Reset selected filters">Reset</button>
+          </div>
         </div>
       </div>
 
@@ -1418,6 +1520,9 @@ const resources = [
     const searchInput = document.getElementById("searchInput");
     const searchSubmitButton = document.getElementById("searchSubmitButton");
     const searchResetButton = document.getElementById("searchResetButton");
+    const selectionResetButton = document.getElementById("selectionResetButton");
+    const activeFilterChips = document.getElementById("activeFilterChips");
+    const activeFiltersBar = document.getElementById("activeFiltersBar");
     const economicPillsEl = document.getElementById("economicPills");
     const demographicFilter = document.getElementById("demographicFilter");
     const geographicFilter = document.getElementById("geographicFilter");
@@ -1491,6 +1596,110 @@ const resources = [
         });
         economicPillsEl.appendChild(b);
       });
+    }
+
+    function hasActiveSelections() {
+      return Boolean(
+        state.economicImpacts.length ||
+        state.demographics.length ||
+        state.geographies.length ||
+        state.populations.length ||
+        state.publicationFormats.length ||
+        state.useCases.length ||
+        state.sort !== "year-desc"
+      );
+    }
+
+    function updateSelectionResetVisibility() {
+      const show = hasActiveSelections();
+      selectionResetButton.classList.toggle("is-visible", show);
+      activeFiltersBar.style.display = show ? "flex" : "none";
+    }
+
+    function renderActiveFilterChips() {
+      const chips = [];
+      state.economicImpacts.forEach(value => {
+        chips.push(`
+          <span class="filter-chip">
+            <span>Economic Impact: ${escapeHtml(value)}</span>
+            <button type="button" class="filter-chip-remove" aria-label="Remove filter" data-chip-kind="economic" data-chip-value="${escapeHtml(value)}">×</button>
+          </span>
+        `);
+      });
+      state.demographics.forEach(value => {
+        chips.push(`
+          <span class="filter-chip">
+            <span>Demographic: ${escapeHtml(value)}</span>
+            <button type="button" class="filter-chip-remove" aria-label="Remove filter" data-chip-kind="demographic" data-chip-value="${escapeHtml(value)}">×</button>
+          </span>
+        `);
+      });
+      state.geographies.forEach(value => {
+        chips.push(`
+          <span class="filter-chip">
+            <span>Geographic: ${escapeHtml(value)}</span>
+            <button type="button" class="filter-chip-remove" aria-label="Remove filter" data-chip-kind="geographic" data-chip-value="${escapeHtml(value)}">×</button>
+          </span>
+        `);
+      });
+      state.populations.forEach(value => {
+        chips.push(`
+          <span class="filter-chip">
+            <span>Population: ${escapeHtml(value)}</span>
+            <button type="button" class="filter-chip-remove" aria-label="Remove filter" data-chip-kind="population" data-chip-value="${escapeHtml(value)}">×</button>
+          </span>
+        `);
+      });
+      state.publicationFormats.forEach(value => {
+        chips.push(`
+          <span class="filter-chip">
+            <span>Format: ${escapeHtml(value)}</span>
+            <button type="button" class="filter-chip-remove" aria-label="Remove filter" data-chip-kind="publicationFormat" data-chip-value="${escapeHtml(value)}">×</button>
+          </span>
+        `);
+      });
+      state.useCases.forEach(value => {
+        chips.push(`
+          <span class="filter-chip">
+            <span>Use case: ${escapeHtml(value)}</span>
+            <button type="button" class="filter-chip-remove" aria-label="Remove filter" data-chip-kind="useCase" data-chip-value="${escapeHtml(value)}">×</button>
+          </span>
+        `);
+      });
+
+      if (state.sort !== "year-desc") {
+        const sortLabels = {
+          "title-asc": "A–Z title",
+          "author-asc": "Author",
+          "year-asc": "Oldest year"
+        };
+        const sortLabel = sortLabels[state.sort] || state.sort;
+        chips.push(`
+          <span class="filter-chip">
+            <span>Sort: ${escapeHtml(sortLabel)}</span>
+            <button type="button" class="filter-chip-remove" aria-label="Reset sort order" data-chip-kind="sort" data-chip-value="">×</button>
+          </span>
+        `);
+      }
+
+      activeFilterChips.innerHTML = chips.join("");
+      updateSelectionResetVisibility();
+    }
+
+    function resetSelections() {
+      state.economicImpacts = [];
+      state.demographics = [];
+      state.geographies = [];
+      state.populations = [];
+      state.publicationFormats = [];
+      state.useCases = [];
+      state.sort = "year-desc";
+      state.page = 1;
+      state.openKey = null;
+      sortFilter.value = "year-desc";
+      fillAuxiliaryFilters();
+      renderEconomicPills();
+      renderList();
     }
 
     function renderMultiSelect(panelEl, buttonEl, options, selectedValues, emptyLabel) {
@@ -1636,19 +1845,7 @@ const resources = [
     function resetFilters() {
       searchInput.value = "";
       state.search = "";
-      state.economicImpacts = [];
-      state.demographics = [];
-      state.geographies = [];
-      state.populations = [];
-      state.publicationFormats = [];
-      state.useCases = [];
-      state.sort = "year-desc";
-      state.page = 1;
-      state.openKey = null;
-      sortFilter.value = "year-desc";
-      fillAuxiliaryFilters();
-      renderEconomicPills();
-      renderList();
+      resetSelections();
     }
 
     function renderList() {
@@ -1698,6 +1895,8 @@ const resources = [
 
                   <div class="details ${isOpen ? "open" : ""}">
                     <div class="details-inner">
+                      <p class="summary"><span class="summary-label">Summary</span>${item.summary}</p>
+
                       <div class="tag-group">
                         <div class="tag-group-title">Use Case</div>
                         <div class="tag-row">
@@ -1729,6 +1928,7 @@ const resources = [
 
       attachToggleHandlers();
       renderPagination(totalPages, filtered.length);
+      renderActiveFilterChips();
     }
 
     function attachToggleHandlers() {
@@ -1814,6 +2014,40 @@ const resources = [
 
     sortFilter.addEventListener("change", e => {
       state.sort = e.target.value;
+      state.page = 1;
+      state.openKey = null;
+      renderList();
+    });
+
+    selectionResetButton.addEventListener("click", resetSelections);
+
+    activeFilterChips.addEventListener("click", event => {
+      const btn = event.target.closest(".filter-chip-remove");
+      if (!btn) return;
+      const kind = btn.dataset.chipKind;
+      const value = btn.dataset.chipValue || "";
+      if (kind === "economic") {
+        state.economicImpacts = state.economicImpacts.filter(v => v !== value);
+        renderEconomicPills();
+      } else if (kind === "demographic") {
+        state.demographics = state.demographics.filter(v => v !== value);
+        fillAuxiliaryFilters();
+      } else if (kind === "geographic") {
+        state.geographies = state.geographies.filter(v => v !== value);
+        fillAuxiliaryFilters();
+      } else if (kind === "population") {
+        state.populations = state.populations.filter(v => v !== value);
+        fillAuxiliaryFilters();
+      } else if (kind === "publicationFormat") {
+        state.publicationFormats = state.publicationFormats.filter(v => v !== value);
+        fillAuxiliaryFilters();
+      } else if (kind === "useCase") {
+        state.useCases = state.useCases.filter(v => v !== value);
+        fillAuxiliaryFilters();
+      } else if (kind === "sort") {
+        state.sort = "year-desc";
+        sortFilter.value = "year-desc";
+      }
       state.page = 1;
       state.openKey = null;
       renderList();
