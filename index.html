@@ -7,6 +7,38 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+(function (m, a, z, e) {
+  var s, t, u, v;
+  try {
+    t = m.sessionStorage.getItem('maze-us');
+  } catch (err) {}
+
+  if (!t) {
+    t = new Date().getTime();
+    try {
+      m.sessionStorage.setItem('maze-us', t);
+    } catch (err) {}
+  }
+
+  u = document.currentScript || (function () {
+    var w = document.getElementsByTagName('script');
+    return w[w.length - 1];
+  })();
+  v = u && u.nonce;
+
+  s = a.createElement('script');
+  s.src = z + '?apiKey=' + e;
+  s.async = true;
+  if (v) s.setAttribute('nonce', v);
+  a.getElementsByTagName('head')[0].appendChild(s);
+  m.mazeUniversalSnippetApiKey = e;
+})(window, document, 'https://snippet.maze.co/maze-universal-loader.js', '7cac616f-a8b0-4d1d-bf1a-b3579a3709ad');
+</script>
+
+
+  
   <style>
     :root {
       --navy: #062f49;
@@ -109,7 +141,7 @@
       background: transparent;
       color: var(--navy);
       font-family: var(--font-ui);
-      font-size: 20px;
+      font-size: 16px;
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.04em;
@@ -228,7 +260,7 @@
     h1 {
       margin: 0 0 10px;
       font-family: var(--font-ui);
-      font-size: clamp(34px, 5vw, 54px);
+      font-size: clamp(42px, 5vw, 48px);
       line-height: 1.1;
       letter-spacing: -0.01em;
       font-weight: 500;
@@ -368,7 +400,7 @@
       border: 1px solid var(--teal-bright);
       background: var(--white);
       color: var(--navy);
-      padding: 10px 16px 9px;
+      padding: 6px 10px;
       font-family: var(--font-ui);
       font-size: 14px;
       font-weight: 500;
@@ -568,7 +600,7 @@
 
     .multi-select-button {
       width: 100%;
-      height: 52px;
+      height: 40px;
       border: 1px solid var(--line);
       border-radius: 0;
       background: var(--grey-bg);
@@ -1132,48 +1164,48 @@
 
         <div class="filters-panel" aria-label="Filters and sort">
           <section class="filters-section" aria-label="Optional filters">
-            <h2 class="filters-heading">Filters By</h2>
+            <!-- <h2 class="filters-heading">Filter By</h2> -->
             <div class="controls">
               <div class="control">
-                <label for="useCaseFilter">Use Cases</label>
+                <!-- <label for="useCaseFilter">Use Cases</label> -->
                 <div class="multi-select" id="useCaseFilter">
-                  <button class="multi-select-button" type="button" aria-label="Use case">All</button>
+                  <button class="multi-select-button" type="button" aria-label="Use case">Use case</button>
                   <span class="select-icon">▼</span>
                   <div class="multi-select-panel"></div>
                 </div>
               </div>
 
               <div class="control">
-                <label for="populationFilter">Special Populations Covered</label>
+                <!-- <label for="populationFilter">Special Populations Covered</label> -->
                 <div class="multi-select" id="populationFilter">
-                  <button class="multi-select-button" type="button" aria-label="Special populations covered">All</button>
+                  <button class="multi-select-button" type="button" aria-label="Special populations covered">Special populations covered</button>
                   <span class="select-icon">▼</span>
                   <div class="multi-select-panel"></div>
                 </div>
               </div>
 
               <div class="control">
-                <label for="demographicFilter">Demographic Analysis Included</label>
+                <!-- <label for="demographicFilter">Demographic Analysis Included</label> -->
                 <div class="multi-select" id="demographicFilter">
-                  <button class="multi-select-button" type="button" aria-label="Demographic analysis included">All</button>
+                  <button class="multi-select-button" type="button" aria-label="Demographic analysis included">Demographic analysis included</button>
                   <span class="select-icon">▼</span>
                   <div class="multi-select-panel"></div>
                 </div>
               </div>
 
               <div class="control">
-                <label for="geographicFilter">Geographic Focus of the Publication</label>
+                <!-- <label for="geographicFilter">Geographic Focus of the Publication</label> -->
                 <div class="multi-select" id="geographicFilter">
-                  <button class="multi-select-button" type="button" aria-label="Geographic focus">All</button>
+                  <button class="multi-select-button" type="button" aria-label="Geographic focus">Geographic focus</button>
                   <span class="select-icon">▼</span>
                   <div class="multi-select-panel"></div>
                 </div>
               </div>
 
               <div class="control">
-                <label for="publicationFormatFilter">Publication Format</label>
+                <!-- <label for="publicationFormatFilter">Publication Format</label> -->
                 <div class="multi-select" id="publicationFormatFilter">
-                  <button class="multi-select-button" type="button" aria-label="Publication format">All</button>
+                  <button class="multi-select-button" type="button" aria-label="Publication format">Publication format</button>
                   <span class="select-icon">▼</span>
                   <div class="multi-select-panel"></div>
                 </div>
@@ -1182,15 +1214,15 @@
           </section>
 
           <section class="sort-section" aria-label="Sort resources">
-            <h2 class="sort-heading">Sort By</h2>
+            <!-- <h2 class="sort-heading">Sort By</h2> -->
             <div class="control">
               <label for="sortFilter" class="visually-hidden">Sort</label>
               <div class="select-wrap">
                 <select id="sortFilter" aria-label="Sort resources">
-                  <option value="year-desc">Year (newest first)</option>
-                  <option value="title-asc">Title (A–Z)</option>
-                  <option value="author-asc">Author (A–Z)</option>
-                  <option value="year-asc">Year (oldest first)</option>
+                  <option value="year-desc">Sort by Year (Most Recent)</option>
+                  <option value="title-asc">Sort by Title (A–Z)</option>
+                  <option value="author-asc">Sort by Author (A–Z)</option>
+                  <option value="year-asc">Sort by Year (Oldest to Newest)</option>
                 </select>
                 <span class="select-icon">▼</span>
               </div>
