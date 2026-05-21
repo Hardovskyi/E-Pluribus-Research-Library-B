@@ -191,7 +191,7 @@
 
     .resources-body {
       display: grid;
-      grid-template-columns: minmax(260px, 300px) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
       gap: 24px;
       align-items: start;
     }
@@ -199,10 +199,14 @@
     .filters-sidebar {
       position: sticky;
       top: 16px;
+      min-width: 0;
+      max-width: 100%;
       overflow: visible;
     }
 
     .filters-sidebar .filters-panel {
+      min-width: 0;
+      max-width: 100%;
       overflow: visible;
     }
 
@@ -241,6 +245,16 @@
     .filters-sidebar .controls {
       grid-template-columns: 1fr;
       gap: 14px;
+      min-width: 0;
+      width: 100%;
+    }
+
+    .filters-sidebar .control,
+    .filters-sidebar .multi-select,
+    .filters-sidebar .select-wrap {
+      min-width: 0;
+      max-width: 100%;
+      width: 100%;
     }
 
     .page-header {
@@ -300,16 +314,27 @@
 
     .filters-panel .multi-select-button,
     .filters-panel select {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
       height: 40px;
       background: var(--white);
       border-radius: 6px;
-      font-size: 16px;
+      font-size: 14px;
+      box-sizing: border-box;
     }
 
     .filters-panel .multi-select-button {
+      display: block;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      padding: 0 36px 0 12px;
+    }
+
+    .filters-panel .multi-select {
+      max-width: 100%;
+      min-width: 0;
     }
 
     .search-toolbar {
@@ -477,6 +502,7 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
+      min-width: 0;
     }
 
     .active-filters-bar {
@@ -613,11 +639,14 @@
 
     .multi-select-button {
       width: 100%;
+      max-width: 100%;
+      min-width: 0;
       height: 40px;
       border: 1px solid var(--line);
       border-radius: 6px;
       background: var(--grey-bg);
       padding: 0 48px 0 16px;
+      box-sizing: border-box;
       font-family: var(--font-ui);
       font-size: 16px;
       font-weight: 500;
