@@ -174,11 +174,43 @@
       box-shadow: none;
     }
 
-    .layout-filters-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
+    .layout-search-top {
       margin-bottom: 24px;
+    }
+
+    .layout-search-top .search-panel {
+      width: 100%;
+      margin: 0;
+    }
+
+    .resources-body {
+      display: grid;
+      grid-template-columns: minmax(260px, 300px) minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .filters-sidebar {
+      position: sticky;
+      top: 16px;
+      overflow: visible;
+    }
+
+    .filters-sidebar .filters-panel {
+      overflow: visible;
+    }
+
+    .filters-sidebar .active-filters-bar {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .filters-sidebar .selection-reset-button.is-visible {
+      width: 100%;
+    }
+
+    .resources-main {
+      min-width: 0;
     }
 
     .search-panel {
@@ -192,12 +224,17 @@
     }
 
     .filters-panel {
-      width: min(var(--layout-wide-max), calc(100vw - var(--layout-gutter)));
-      margin-left: auto;
-      margin-right: auto;
+      width: 100%;
+      margin: 0;
       background: var(--grey-panel);
       border-radius: 12px;
-      padding: 22px 24px 20px;
+      padding: 22px 20px 20px;
+      box-shadow: 0 2px 14px rgba(8, 52, 82, 0.08);
+    }
+
+    .filters-sidebar .controls {
+      grid-template-columns: 1fr;
+      gap: 14px;
     }
 
     .page-header {
@@ -1049,8 +1086,25 @@
         justify-content: flex-start;
       }
 
-      .controls {
+      .resources-body {
+        grid-template-columns: 1fr;
+      }
+
+      .filters-sidebar {
+        position: static;
+      }
+
+      .filters-sidebar .controls {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .filters-sidebar .active-filters-bar {
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .filters-sidebar .selection-reset-button.is-visible {
+        width: auto;
       }
 
     }
@@ -1058,6 +1112,10 @@
     @media (max-width: 760px) {
       :root {
         --layout-gutter: 24px;
+      }
+
+      .filters-sidebar .controls {
+        grid-template-columns: 1fr;
       }
 
       .contact-grid {
@@ -1107,7 +1165,7 @@
     </div>
 
     <section id="resourcesPage" class="content-section active" aria-label="Resources page">
-      <div class="layout-filters-stack">
+      <div class="layout-wide layout-search-top">
         <div class="search-panel" aria-label="Search and economic impact areas">
           <div class="search-toolbar">
             <div class="search-wrap">
@@ -1123,89 +1181,93 @@
             <div id="economicPills" class="eia-pills" role="tablist" aria-label="Filter by economic impact area"></div>
           </section>
         </div>
-
-        <div class="filters-panel" aria-label="Filters and sort">
-          <section class="filters-section" aria-label="Optional filters">
-            <h2 class="filters-heading">Filters By</h2>
-            <div class="controls">
-              <div class="control">
-                <label for="useCaseFilter">Use Cases</label>
-                <div class="multi-select" id="useCaseFilter">
-                  <button class="multi-select-button" type="button" aria-label="Use case">All</button>
-                  <span class="select-icon">▼</span>
-                  <div class="multi-select-panel"></div>
-                </div>
-              </div>
-
-              <div class="control">
-                <label for="populationFilter">Special Populations Covered</label>
-                <div class="multi-select" id="populationFilter">
-                  <button class="multi-select-button" type="button" aria-label="Special populations covered">All</button>
-                  <span class="select-icon">▼</span>
-                  <div class="multi-select-panel"></div>
-                </div>
-              </div>
-
-              <div class="control">
-                <label for="demographicFilter">Demographic Analysis Included</label>
-                <div class="multi-select" id="demographicFilter">
-                  <button class="multi-select-button" type="button" aria-label="Demographic analysis included">All</button>
-                  <span class="select-icon">▼</span>
-                  <div class="multi-select-panel"></div>
-                </div>
-              </div>
-
-              <div class="control">
-                <label for="geographicFilter">Geographic Focus of the Publication</label>
-                <div class="multi-select" id="geographicFilter">
-                  <button class="multi-select-button" type="button" aria-label="Geographic focus">All</button>
-                  <span class="select-icon">▼</span>
-                  <div class="multi-select-panel"></div>
-                </div>
-              </div>
-
-              <div class="control">
-                <label for="publicationFormatFilter">Publication Format</label>
-                <div class="multi-select" id="publicationFormatFilter">
-                  <button class="multi-select-button" type="button" aria-label="Publication format">All</button>
-                  <span class="select-icon">▼</span>
-                  <div class="multi-select-panel"></div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="sort-section" aria-label="Sort resources">
-            <h2 class="sort-heading">Sort By</h2>
-            <div class="control">
-              <label for="sortFilter" class="visually-hidden">Sort</label>
-              <div class="select-wrap">
-                <select id="sortFilter" aria-label="Sort resources">
-                  <option value="year-desc">Year (newest first)</option>
-                  <option value="title-asc">Title (A–Z)</option>
-                  <option value="author-asc">Author (A–Z)</option>
-                  <option value="year-asc">Year (oldest first)</option>
-                </select>
-                <span class="select-icon">▼</span>
-              </div>
-            </div>
-          </section>
-
-          <div id="activeFiltersBar" class="active-filters-bar" aria-label="Applied filters">
-            <div id="activeFilterChips" class="filter-chip-list"></div>
-            <button id="selectionResetButton" class="selection-reset-button" type="button" aria-label="Reset selected filters">Reset</button>
-          </div>
-        </div>
       </div>
 
-      <div class="layout-wide">
-        <div class="results-meta">
-          <div id="resultsCount">0 results</div>
-          <div id="pageInfo"></div>
-        </div>
+      <div class="layout-wide resources-body">
+        <aside class="filters-sidebar" aria-label="Filters and sort">
+          <div class="filters-panel">
+            <section class="filters-section" aria-label="Optional filters">
+              <h2 class="filters-heading">Filters By</h2>
+              <div class="controls">
+                <div class="control">
+                  <label for="publicationFormatFilter">Publication Format</label>
+                  <div class="multi-select" id="publicationFormatFilter">
+                    <button class="multi-select-button" type="button" aria-label="Publication format">All</button>
+                    <span class="select-icon">▼</span>
+                    <div class="multi-select-panel"></div>
+                  </div>
+                </div>
 
-        <section id="list" class="list" aria-live="polite"></section>
-        <nav id="pagination" class="pagination" aria-label="Pagination"></nav>
+                <div class="control">
+                  <label for="useCaseFilter">Use Cases</label>
+                  <div class="multi-select" id="useCaseFilter">
+                    <button class="multi-select-button" type="button" aria-label="Use case">All</button>
+                    <span class="select-icon">▼</span>
+                    <div class="multi-select-panel"></div>
+                  </div>
+                </div>
+
+                <div class="control">
+                  <label for="populationFilter">Special Populations Covered</label>
+                  <div class="multi-select" id="populationFilter">
+                    <button class="multi-select-button" type="button" aria-label="Special populations covered">All</button>
+                    <span class="select-icon">▼</span>
+                    <div class="multi-select-panel"></div>
+                  </div>
+                </div>
+
+                <div class="control">
+                  <label for="demographicFilter">Demographic Analysis Included</label>
+                  <div class="multi-select" id="demographicFilter">
+                    <button class="multi-select-button" type="button" aria-label="Demographic analysis included">All</button>
+                    <span class="select-icon">▼</span>
+                    <div class="multi-select-panel"></div>
+                  </div>
+                </div>
+
+                <div class="control">
+                  <label for="geographicFilter">Geographic Focus of the Publication</label>
+                  <div class="multi-select" id="geographicFilter">
+                    <button class="multi-select-button" type="button" aria-label="Geographic focus">All</button>
+                    <span class="select-icon">▼</span>
+                    <div class="multi-select-panel"></div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="sort-section" aria-label="Sort resources">
+              <h2 class="sort-heading">Sort By</h2>
+              <div class="control">
+                <label for="sortFilter" class="visually-hidden">Sort</label>
+                <div class="select-wrap">
+                  <select id="sortFilter" aria-label="Sort resources">
+                    <option value="year-desc">Year (newest first)</option>
+                    <option value="title-asc">Title (A–Z)</option>
+                    <option value="author-asc">Author (A–Z)</option>
+                    <option value="year-asc">Year (oldest first)</option>
+                  </select>
+                  <span class="select-icon">▼</span>
+                </div>
+              </div>
+            </section>
+
+            <div id="activeFiltersBar" class="active-filters-bar" aria-label="Applied filters">
+              <div id="activeFilterChips" class="filter-chip-list"></div>
+              <button id="selectionResetButton" class="selection-reset-button" type="button" aria-label="Reset selected filters">Reset</button>
+            </div>
+          </div>
+        </aside>
+
+        <div class="resources-main">
+          <div class="results-meta">
+            <div id="resultsCount">0 results</div>
+            <div id="pageInfo"></div>
+          </div>
+
+          <section id="list" class="list" aria-live="polite"></section>
+          <nav id="pagination" class="pagination" aria-label="Pagination"></nav>
+        </div>
       </div>
     </section>
 
