@@ -16,7 +16,10 @@
       --teal-bright: #4ca6b8;
       --teal-light: #79bccc;
       --filter-bg: #d2e9ee;
+      --teal-panel: #4ca6b8;
+      --hero-band: #d2e9ee;
       --grey-bg: #f2f2f2;
+      --grey-panel: #f2f2f2;
       --sand: #ffffff;
       --cream: #ffffff;
       --text: #2c5a64;
@@ -31,6 +34,18 @@
     }
 
     * { box-sizing: border-box; }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
 
     body {
       margin: 0;
@@ -141,11 +156,46 @@
       margin-right: auto;
     }
 
-    .layout-filters {
+    .hero-band {
+      background: var(--hero-band);
+      padding: 28px 0 32px;
+      margin-bottom: 24px;
+    }
+
+    .hero-card.page-header {
+      background: var(--white);
+      color: var(--text);
+      padding: 28px 32px 30px;
+      margin-bottom: 0;
+      border-radius: 12px;
+      border: 1px solid rgba(6, 47, 73, 0.08);
+      box-shadow: 0 8px 24px rgba(6, 47, 73, 0.08);
+    }
+
+    .layout-filters-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .search-panel {
       width: min(var(--layout-wide-max), calc(100vw - var(--layout-gutter)));
       margin-left: auto;
       margin-right: auto;
-      background: var(--filter-bg);
+      background: var(--teal-panel);
+      border-radius: 12px;
+      padding: 22px 24px 20px;
+      color: var(--white);
+    }
+
+    .filters-panel {
+      width: min(var(--layout-wide-max), calc(100vw - var(--layout-gutter)));
+      margin-left: auto;
+      margin-right: auto;
+      background: var(--grey-panel);
+      border-radius: 12px;
+      padding: 22px 24px 20px;
     }
 
     .page-header {
@@ -195,55 +245,116 @@
       display: block;
     }
 
-    .layout-filters .eia-heading {
+    .filters-panel .control label {
       font-size: 16px;
+      font-weight: 500;
+      color: var(--navy);
+      text-transform: none;
+      letter-spacing: 0;
     }
 
-    .layout-filters .eia-pill {
-      font-size: 14px;
+    .filters-panel .multi-select-button,
+    .filters-panel select {
+      background: var(--white);
+      border-radius: 6px;
     }
 
-    .layout-filters .filters-heading {
+    .search-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .search-toolbar .search-wrap {
+      flex: 1 1 280px;
+      min-width: 0;
+    }
+
+    .search-toolbar input[type="search"] {
+      height: 48px;
+      border-radius: 6px;
+      border: none;
+    }
+
+    .btn-search,
+    .btn-apply {
+      height: 48px;
+      padding: 0 22px;
+      border: none;
+      border-radius: 6px;
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--font-ui);
       font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      flex-shrink: 0;
     }
 
-    .layout-filters .control label {
+    .btn-search:hover,
+    .btn-apply:hover {
+      background: var(--teal-dark);
+    }
+
+    .btn-reset-outline {
+      height: 48px;
+      padding: 0 22px;
+      border: 1px solid var(--white);
+      border-radius: 6px;
+      background: var(--white);
+      color: var(--navy);
+      font-family: var(--font-ui);
       font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      flex-shrink: 0;
     }
 
-    .layout-filters input[type="search"],
-    .layout-filters .multi-select-button,
-    .layout-filters select {
-      font-size: 16px;
+    .filters-panel .btn-reset-outline {
+      border-color: var(--teal-bright);
+      color: var(--navy);
     }
 
-    .layout-filters .multi-option {
-      font-size: 14px;
+    .btn-reset-outline:hover {
+      background: var(--filter-bg);
     }
 
-    .layout-filters .filter-chip {
-      font-size: 14px;
+    .filters-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 16px;
     }
 
-    .search-row {
-      margin-bottom: 20px;
-    }
-
-    .search-row .control {
-      max-width: none;
+    .search-panel .btn-reset-outline {
+      border-color: var(--white);
     }
 
     .eia-section {
-      margin-bottom: 22px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--line);
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .search-panel .eia-heading {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 0 0 12px;
     }
 
     .eia-heading {
       font-family: var(--font-ui);
-      font-size: 16px;
+      font-size: 12px;
       font-weight: 500;
       color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       margin: 0 0 12px;
     }
 
@@ -271,22 +382,54 @@
       border-color: var(--teal-bright);
     }
 
+    .search-panel .eia-pill {
+      border-color: var(--white);
+      background: var(--white);
+      color: var(--navy);
+    }
+
+    .search-panel .eia-pill.active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: var(--white);
+    }
+
     .eia-pill.active {
-      background: var(--teal-light);
-      border-color: var(--teal-light);
+      background: var(--navy);
+      border-color: var(--navy);
       color: var(--white);
     }
 
     .filters-section {
-      margin-bottom: 18px;
+      margin-bottom: 0;
     }
 
-    .filters-heading {
+    .filters-heading,
+    .sort-heading {
       font-family: var(--font-ui);
-      font-size: 16px;
+      font-size: 12px;
       font-weight: 500;
-      color: var(--navy);
+      color: var(--teal-bright);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
       margin: 0 0 12px;
+    }
+
+    .sort-section {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .sort-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px 22px;
+      align-items: end;
+    }
+
+    .sort-row .controls {
+      margin-bottom: 0;
     }
 
     .controls {
@@ -506,15 +649,27 @@
     }
 
     .item {
-      padding: 26px 0;
-      border-bottom: 1px solid var(--line);
+      padding: 0;
+      border-bottom: none;
+      margin-bottom: 16px;
     }
 
     .resource-card {
       display: grid;
-      grid-template-columns: 180px 1fr;
-      gap: 18px 22px;
+      grid-template-columns: 1fr 200px;
+      gap: 22px 28px;
       align-items: start;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 22px 24px;
+    }
+
+    .resource-aside {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: stretch;
     }
 
     .resource-media {
@@ -529,31 +684,38 @@
       min-width: 0;
     }
 
-    .resource-header {
+    .resource-top-meta {
       display: flex;
       justify-content: space-between;
-      gap: 14px;
-      align-items: baseline;
-    }
-
-    .resource-title {
-      margin: 0;
-      font-family: var(--font-ui);
-      font-size: 26px;
-      line-height: 1.2;
-      font-weight: 600;
-      color: var(--title);
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
     }
 
     .resource-year {
-      flex: 0 0 auto;
       font-family: var(--font-ui);
       font-size: 12px;
       font-weight: 500;
       color: var(--orange);
       letter-spacing: 0.03em;
       text-transform: uppercase;
-      white-space: nowrap;
+    }
+
+    .resource-meta-tags {
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      text-align: right;
+    }
+
+    .resource-title {
+      margin: 0 0 6px;
+      font-family: var(--font-ui);
+      font-size: 26px;
+      line-height: 1.2;
+      font-weight: 600;
+      color: var(--title);
     }
 
     .resource-authors {
@@ -582,36 +744,39 @@
       font-weight: 500;
     }
 
-    .readmore-button {
+    .moreinfo-divider {
+      border-top: 1px solid var(--line);
+      margin: 14px 0 0;
+    }
+
+    .moreinfo-button {
       width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border: none;
       background: transparent;
-      padding: 12px 0;
+      padding: 12px 0 0;
       font-family: var(--font-ui);
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 500;
-      color: var(--navy);
+      color: var(--muted);
       cursor: pointer;
       text-align: left;
     }
 
-    .readmore-button:hover {
-      color: var(--teal-bright);
+    .moreinfo-button:hover {
+      color: var(--teal);
     }
 
-    .readmore-icon {
-      color: var(--orange);
-      font-size: 22px;
+    .moreinfo-icon {
+      color: var(--muted);
+      font-size: 20px;
       line-height: 1;
-      transform: rotate(0deg);
-      transition: transform 0.2s ease;
     }
 
-    .readmore-button[aria-expanded="true"] .readmore-icon {
-      transform: rotate(45deg);
+    .moreinfo-button[aria-expanded="true"] {
+      color: var(--teal);
     }
 
     .details {
@@ -677,24 +842,32 @@
       background: rgba(255, 255, 255, 0.6);
     }
 
-    .resource-link {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 0;
-      background: transparent;
-      color: var(--navy);
-      text-decoration: underline;
-      text-underline-offset: 3px;
+    .source-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--grey-bg);
+      color: var(--teal-bright);
+      text-decoration: none;
       font-family: var(--font-ui);
       font-size: 16px;
       font-weight: 500;
-      letter-spacing: 0;
-      transition: color 0.2s ease;
+      transition: background 0.2s ease, border-color 0.2s ease;
     }
 
-    .resource-link:hover {
-      color: var(--teal-bright);
-      background: transparent;
+    .source-button:hover {
+      background: var(--filter-bg);
+      border-color: var(--teal-bright);
+    }
+
+    .source-button-icon {
+      font-size: 14px;
+      line-height: 1;
     }
 
     @media (max-width: 760px) {
@@ -702,10 +875,27 @@
         grid-template-columns: 1fr;
       }
 
+      .resource-aside {
+        order: -1;
+      }
+
       .resource-media {
         width: 100%;
         height: auto;
         aspect-ratio: 1 / 1;
+      }
+
+      .sort-row {
+        grid-template-columns: 1fr;
+      }
+
+      .filters-actions {
+        justify-content: stretch;
+      }
+
+      .filters-actions .btn-apply,
+      .filters-actions .btn-reset-outline {
+        flex: 1;
       }
     }
 
@@ -915,99 +1105,117 @@
   </div>
 
   <main class="page">
-    <div class="layout-wide">
-      <header class="page-header">
-        <div class="eyebrow" id="pageEyebrow">E Pluribus Research Library</div>
-        <h1 id="pageTitle">All research and evidence</h1>
-        <p class="intro" id="pageIntro">
-          Research, reports, and practical resources on immigrant inclusion, workforce development, local economies, and thriving communities.
-        </p>
-      </header>
+    <div class="hero-band">
+      <div class="layout-wide">
+        <header class="hero-card page-header">
+          <div class="eyebrow" id="pageEyebrow">E Pluribus Research Library</div>
+          <h1 id="pageTitle">Supporting you at the forefront of immigrant-inclusive economic development.</h1>
+          <p class="intro" id="pageIntro">
+            A designated place for people to find and share research, reports, and practical resources on immigrant inclusion, workforce development, local economies, and thriving communities.
+          </p>
+        </header>
+      </div>
     </div>
 
     <section id="resourcesPage" class="content-section active" aria-label="Resources page">
-      <div class="layout-filters">
-        <section class="search-row" aria-label="Keyword search">
-          <div class="control">
-            <label for="searchInput">Search</label>
+      <div class="layout-filters-stack">
+        <div class="search-panel" aria-label="Search and economic impact areas">
+          <div class="search-toolbar">
             <div class="search-wrap">
-              <input id="searchInput" type="search" placeholder="Search resources by keyword, topic, or organization…" aria-label="Search resources" />
+              <input id="searchInput" type="search" placeholder="Search" aria-label="Search resources" />
               <span class="search-icon">⌕</span>
             </div>
+            <button id="searchSubmitButton" class="btn-search" type="button">Search</button>
+            <button id="searchResetButton" class="btn-reset-outline" type="button">Reset</button>
           </div>
-        </section>
 
-        <section class="eia-section" aria-label="Economic impact areas">
-          <h2 class="eia-heading">Economic Impact Areas</h2>
-          <div id="economicPills" class="eia-pills" role="tablist" aria-label="Filter by economic impact area"></div>
-        </section>
+          <section class="eia-section" aria-label="Economic impact areas">
+            <h2 class="eia-heading">Economic Impact Areas</h2>
+            <div id="economicPills" class="eia-pills" role="tablist" aria-label="Filter by economic impact area"></div>
+          </section>
+        </div>
 
-        <section class="filters-section" aria-label="Optional filters">
-          <h2 class="filters-heading">Filters</h2>
-          <div class="controls">
-            <div class="control">
-              <label for="demographicFilter">Demographic Analysis Included</label>
-              <div class="multi-select" id="demographicFilter">
-                <button class="multi-select-button" type="button" aria-label="Demographic analysis included">All</button>
-                <span class="select-icon">▼</span>
-                <div class="multi-select-panel"></div>
+        <div class="filters-panel" aria-label="Filters and sort">
+          <section class="filters-section" aria-label="Optional filters">
+            <h2 class="filters-heading">Filters By</h2>
+            <div class="controls">
+              <div class="control">
+                <label for="useCaseFilter">Use Cases</label>
+                <div class="multi-select" id="useCaseFilter">
+                  <button class="multi-select-button" type="button" aria-label="Use case">All</button>
+                  <span class="select-icon">▼</span>
+                  <div class="multi-select-panel"></div>
+                </div>
+              </div>
+
+              <div class="control">
+                <label for="populationFilter">Special Populations Covered</label>
+                <div class="multi-select" id="populationFilter">
+                  <button class="multi-select-button" type="button" aria-label="Special populations covered">All</button>
+                  <span class="select-icon">▼</span>
+                  <div class="multi-select-panel"></div>
+                </div>
+              </div>
+
+              <div class="control">
+                <label for="demographicFilter">Demographic Analysis Included</label>
+                <div class="multi-select" id="demographicFilter">
+                  <button class="multi-select-button" type="button" aria-label="Demographic analysis included">All</button>
+                  <span class="select-icon">▼</span>
+                  <div class="multi-select-panel"></div>
+                </div>
+              </div>
+
+              <div class="control">
+                <label for="geographicFilter">Geographic Focus of the Publication</label>
+                <div class="multi-select" id="geographicFilter">
+                  <button class="multi-select-button" type="button" aria-label="Geographic focus">All</button>
+                  <span class="select-icon">▼</span>
+                  <div class="multi-select-panel"></div>
+                </div>
+              </div>
+
+              <div class="control">
+                <label for="publicationFormatFilter">Publication Format</label>
+                <div class="multi-select" id="publicationFormatFilter">
+                  <button class="multi-select-button" type="button" aria-label="Publication format">All</button>
+                  <span class="select-icon">▼</span>
+                  <div class="multi-select-panel"></div>
+                </div>
               </div>
             </div>
+          </section>
 
-            <div class="control">
-              <label for="geographicFilter">Geographic Focus of the Publication</label>
-              <div class="multi-select" id="geographicFilter">
-                <button class="multi-select-button" type="button" aria-label="Geographic focus">All</button>
-                <span class="select-icon">▼</span>
-                <div class="multi-select-panel"></div>
+          <section class="sort-section" aria-label="Sort resources">
+            <div class="sort-row">
+              <div>
+                <h2 class="sort-heading">Sort By</h2>
+                <div class="control">
+                  <label for="sortFilter" class="visually-hidden">Sort</label>
+                  <div class="select-wrap">
+                    <select id="sortFilter" aria-label="Sort resources">
+                      <option value="year-desc">Year (newest first)</option>
+                      <option value="title-asc">Title (A–Z)</option>
+                      <option value="author-asc">Author (A–Z)</option>
+                      <option value="year-asc">Year (oldest first)</option>
+                    </select>
+                    <span class="select-icon">▼</span>
+                  </div>
+                </div>
+              </div>
+              <div class="filters-actions">
+                <button id="applyFiltersButton" class="btn-apply" type="button">Apply</button>
+                <button id="filtersResetButton" class="btn-reset-outline" type="button">Reset</button>
               </div>
             </div>
+          </section>
+        </div>
 
-            <div class="control">
-              <label for="populationFilter">Special Populations Covered</label>
-              <div class="multi-select" id="populationFilter">
-                <button class="multi-select-button" type="button" aria-label="Special populations covered">All</button>
-                <span class="select-icon">▼</span>
-                <div class="multi-select-panel"></div>
-              </div>
-            </div>
-
-            <div class="control">
-              <label for="publicationFormatFilter">Publication Format</label>
-              <div class="multi-select" id="publicationFormatFilter">
-                <button class="multi-select-button" type="button" aria-label="Publication format">All</button>
-                <span class="select-icon">▼</span>
-                <div class="multi-select-panel"></div>
-              </div>
-            </div>
-
-            <div class="control">
-              <label for="useCaseFilter">Use Case</label>
-              <div class="multi-select" id="useCaseFilter">
-                <button class="multi-select-button" type="button" aria-label="Use case">All</button>
-                <span class="select-icon">▼</span>
-                <div class="multi-select-panel"></div>
-              </div>
-            </div>
-
-            <div class="control">
-              <label for="sortFilter">Sort</label>
-              <div class="select-wrap">
-                <select id="sortFilter" aria-label="Sort resources">
-                  <option value="year-desc">Sort by newest year</option>
-                  <option value="title-asc">Sort alphabetically</option>
-                  <option value="author-asc">Sort by author</option>
-                  <option value="year-asc">Sort by oldest year</option>
-                </select>
-                <span class="select-icon">▼</span>
-              </div>
-            </div>
+        <div class="layout-wide">
+          <div id="activeFiltersBar" class="active-filters-bar" aria-label="Applied filters">
+            <div id="activeFilterChips" class="filter-chip-list"></div>
+            <button id="resetFiltersButton" class="reset-button" type="button" aria-label="Reset all filters">Reset</button>
           </div>
-        </section>
-
-        <div id="activeFiltersBar" class="active-filters-bar" aria-label="Applied filters">
-          <div id="activeFilterChips" class="filter-chip-list"></div>
-          <button id="resetFiltersButton" class="reset-button" type="button" aria-label="Reset all filters">Reset</button>
         </div>
       </div>
 
@@ -1300,8 +1508,8 @@ const resources = [
       },
       resources: {
         eyebrow: "E Pluribus Research Library",
-        title: "All research and evidence",
-        intro: "Research, reports, and practical resources on immigrant inclusion, workforce development, local economies, and thriving communities."
+        title: "Supporting you at the forefront of immigrant-inclusive economic development.",
+        intro: "A designated place for people to find and share research, reports, and practical resources on immigrant inclusion, workforce development, local economies, and thriving communities."
       },
       events: {
         eyebrow: "Events",
@@ -1330,7 +1538,20 @@ const resources = [
       activePage: "resources"
     };
 
+    const pending = {
+      demographics: [],
+      geographies: [],
+      populations: [],
+      publicationFormats: [],
+      useCases: [],
+      sort: "year-desc"
+    };
+
     const searchInput = document.getElementById("searchInput");
+    const searchSubmitButton = document.getElementById("searchSubmitButton");
+    const searchResetButton = document.getElementById("searchResetButton");
+    const applyFiltersButton = document.getElementById("applyFiltersButton");
+    const filtersResetButton = document.getElementById("filtersResetButton");
     const resetFiltersButton = document.getElementById("resetFiltersButton");
     const economicPillsEl = document.getElementById("economicPills");
     const activeFilterChips = document.getElementById("activeFilterChips");
@@ -1525,10 +1746,7 @@ const resources = [
             const index = selectedValues.indexOf(value);
             if (index !== -1) selectedValues.splice(index, 1);
           }
-          state.page = 1;
-          state.openKey = null;
           renderMultiSelect(panelEl, buttonEl, options, selectedValues, emptyLabel);
-          renderList();
         });
       });
     }
@@ -1538,37 +1756,87 @@ const resources = [
         demographicPanel,
         demographicButton,
         subtypeMap["Demographic Analysis Included"] || [],
-        state.demographics,
+        pending.demographics,
         "All"
       );
       renderMultiSelect(
         geographicPanel,
         geographicButton,
         subtypeMap["Geographic Focus of the Publication"] || [],
-        state.geographies,
+        pending.geographies,
         "All"
       );
       renderMultiSelect(
         populationPanel,
         populationButton,
         subtypeMap["Special Populations Covered"] || [],
-        state.populations,
+        pending.populations,
         "All"
       );
       renderMultiSelect(
         publicationFormatPanel,
         publicationFormatButton,
         subtypeMap["Publication Format"] || [],
-        state.publicationFormats,
+        pending.publicationFormats,
         "All"
       );
       renderMultiSelect(
         useCasePanel,
         useCaseButton,
         subtypeMap["Use Case"] || [],
-        state.useCases,
+        pending.useCases,
         "All"
       );
+      sortFilter.value = pending.sort;
+    }
+
+    function applyPendingFilters() {
+      state.demographics = [...pending.demographics];
+      state.geographies = [...pending.geographies];
+      state.populations = [...pending.populations];
+      state.publicationFormats = [...pending.publicationFormats];
+      state.useCases = [...pending.useCases];
+      state.sort = pending.sort;
+      state.page = 1;
+      state.openKey = null;
+      renderList();
+    }
+
+    function resetPendingFilters() {
+      pending.demographics = [];
+      pending.geographies = [];
+      pending.populations = [];
+      pending.publicationFormats = [];
+      pending.useCases = [];
+      pending.sort = "year-desc";
+      state.demographics = [];
+      state.geographies = [];
+      state.populations = [];
+      state.publicationFormats = [];
+      state.useCases = [];
+      state.sort = "year-desc";
+      sortFilter.value = "year-desc";
+      fillAuxiliaryFilters();
+      state.page = 1;
+      state.openKey = null;
+      renderList();
+    }
+
+    function applySearchPanel() {
+      state.search = searchInput.value.trim();
+      state.page = 1;
+      state.openKey = null;
+      renderList();
+    }
+
+    function resetSearchPanel() {
+      searchInput.value = "";
+      state.search = "";
+      state.economicImpacts = [];
+      state.page = 1;
+      state.openKey = null;
+      renderEconomicPills();
+      renderList();
     }
 
     function sortResources(items) {
@@ -1640,22 +1908,8 @@ const resources = [
     }
 
     function resetFilters() {
-      state.search = "";
-      state.economicImpacts = [];
-      state.demographics = [];
-      state.geographies = [];
-      state.populations = [];
-      state.publicationFormats = [];
-      state.useCases = [];
-      state.sort = "year-desc";
-      state.page = 1;
-      state.openKey = null;
-
-      searchInput.value = "";
-      sortFilter.value = "year-desc";
-      fillAuxiliaryFilters();
-      renderEconomicPills();
-      renderList();
+      resetSearchPanel();
+      resetPendingFilters();
     }
 
     function renderList() {
@@ -1681,30 +1935,31 @@ const resources = [
           const geographies = item.tags["Geographic Focus of the Publication"] || [];
           const populations = item.tags["Special Populations Covered"] || [];
           const useCases = item.tags["Use Case"] || [];
+          const metaParts = [...geographies, ...(typeLabel !== "—" ? typeLabel.split(", ").filter(Boolean) : [])];
+          const metaText = metaParts.length ? metaParts.join(" | ") : "";
           return `
             <article class="item">
               <div class="resource-card">
-                <div class="resource-media" aria-hidden="true"></div>
                 <div class="resource-main">
-                  <div class="resource-header">
-                    <h2 class="resource-title">${item.title}</h2>
-                    <div class="resource-year">${item.date}</div>
+                  <div class="resource-top-meta">
+                    <span class="resource-year">${item.date}</span>
+                    ${metaText ? `<span class="resource-meta-tags">${metaText}</span>` : ""}
                   </div>
+                  <h2 class="resource-title">${item.title}</h2>
                   <div class="resource-authors">${item.authors}</div>
                   <div class="impact-tags" aria-label="Economic impact areas">
                     ${(impactAreas.length ? impactAreas : ["—"]).map(tag => `<span class="impact-tag">${tag}</span>`).join("")}
                   </div>
 
-                  <button class="readmore-button" type="button" data-key="${key}" aria-expanded="${isOpen}">
-                    <span>Read More</span>
-                    <span class="readmore-icon" aria-hidden="true">+</span>
+                  <div class="moreinfo-divider"></div>
+                  <button class="moreinfo-button" type="button" data-key="${key}" aria-expanded="${isOpen}">
+                    <span>More Info</span>
+                    <span class="moreinfo-icon" aria-hidden="true">${isOpen ? "×" : "+"}</span>
                   </button>
-
-                  <a class="resource-link" href="${item.url}" target="_blank" rel="noopener noreferrer">Open Resource</a>
 
                   <div class="details ${isOpen ? "open" : ""}">
                     <div class="details-inner">
-                      <p class="summary">${item.summary}</p>
+                      <p class="summary"><strong>Summary</strong><br>${item.summary}</p>
 
                       <div class="tag-group">
                         <div class="tag-group-title">Demographic Analysis Included</div>
@@ -1744,6 +1999,13 @@ const resources = [
                     </div>
                   </div>
                 </div>
+                <aside class="resource-aside">
+                  <div class="resource-media" aria-hidden="true"></div>
+                  <a class="source-button" href="${item.url}" target="_blank" rel="noopener noreferrer">
+                    <span>Original Source</span>
+                    <span class="source-button-icon" aria-hidden="true">↗</span>
+                  </a>
+                </aside>
               </div>
             </article>
           `;
@@ -1756,7 +2018,7 @@ const resources = [
     }
 
     function attachToggleHandlers() {
-      list.querySelectorAll(".readmore-button").forEach(button => {
+      list.querySelectorAll(".moreinfo-button").forEach(button => {
         button.addEventListener("click", () => {
           const key = button.dataset.key;
           state.openKey = state.openKey === key ? null : key;
@@ -1817,12 +2079,17 @@ const resources = [
       });
     });
 
-    searchInput.addEventListener("input", e => {
-      state.search = e.target.value.trim();
-      state.page = 1;
-      state.openKey = null;
-      renderList();
+    searchSubmitButton.addEventListener("click", applySearchPanel);
+    searchResetButton.addEventListener("click", resetSearchPanel);
+    searchInput.addEventListener("keydown", e => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        applySearchPanel();
+      }
     });
+
+    applyFiltersButton.addEventListener("click", applyPendingFilters);
+    filtersResetButton.addEventListener("click", resetPendingFilters);
 
     [demographicFilter, geographicFilter, populationFilter, publicationFormatFilter, useCaseFilter].forEach(filterEl => {
       const button = filterEl.querySelector(".multi-select-button");
@@ -1835,10 +2102,7 @@ const resources = [
     });
 
     sortFilter.addEventListener("change", e => {
-      state.sort = e.target.value;
-      state.page = 1;
-      state.openKey = null;
-      renderList();
+      pending.sort = e.target.value;
     });
 
     resetFiltersButton.addEventListener("click", resetFilters);
@@ -1853,24 +2117,30 @@ const resources = [
         renderEconomicPills();
       } else if (kind === "demographic") {
         state.demographics = state.demographics.filter(v => v !== value);
+        pending.demographics = [...state.demographics];
         fillAuxiliaryFilters();
       } else if (kind === "geographic") {
         state.geographies = state.geographies.filter(v => v !== value);
+        pending.geographies = [...state.geographies];
         fillAuxiliaryFilters();
       } else if (kind === "population") {
         state.populations = state.populations.filter(v => v !== value);
+        pending.populations = [...state.populations];
         fillAuxiliaryFilters();
       } else if (kind === "publicationFormat") {
         state.publicationFormats = state.publicationFormats.filter(v => v !== value);
+        pending.publicationFormats = [...state.publicationFormats];
         fillAuxiliaryFilters();
       } else if (kind === "useCase") {
         state.useCases = state.useCases.filter(v => v !== value);
+        pending.useCases = [...state.useCases];
         fillAuxiliaryFilters();
       } else if (kind === "search") {
         state.search = "";
         searchInput.value = "";
       } else if (kind === "sort") {
         state.sort = "year-desc";
+        pending.sort = "year-desc";
         sortFilter.value = "year-desc";
       }
       state.page = 1;
@@ -1878,6 +2148,12 @@ const resources = [
       renderList();
     });
 
+    pending.demographics = [...state.demographics];
+    pending.geographies = [...state.geographies];
+    pending.populations = [...state.populations];
+    pending.publicationFormats = [...state.publicationFormats];
+    pending.useCases = [...state.useCases];
+    pending.sort = state.sort;
     fillAuxiliaryFilters();
     renderEconomicPills();
     setActivePage("resources");
