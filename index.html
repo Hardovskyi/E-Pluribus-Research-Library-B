@@ -69,7 +69,7 @@
     }
 
     .topbar-inner {
-      min-height: 82px;
+      min-height: 104px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -90,6 +90,12 @@
       height: 96px;
       width: auto;
       max-width: min(460px, 62vw);
+      object-fit: contain;
+    }
+
+    /* Logo PNG has a black matte; blend it away on the white header */
+    .topbar .site-logo {
+      mix-blend-mode: screen;
     }
 
     .top-nav {
@@ -1084,7 +1090,7 @@
   <div class="topbar">
     <div class="topbar-inner">
       <a class="site-brand-link" href="#" aria-label="E Pluribus home">
-        <img class="site-logo" src="./e-pluribus-logo.png" alt="E Pluribus" onerror="this.onerror=null;this.src='assets/e-pluribus-logo.png';" />
+        <img class="site-logo" src="assets/e-pluribus-logo.png" alt="E Pluribus" width="320" height="96" />
       </a>
       <nav class="top-nav" aria-label="Main navigation">
         <span class="nav-tab-disabled">About</span>
