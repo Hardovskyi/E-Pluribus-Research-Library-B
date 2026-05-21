@@ -6,31 +6,38 @@
   <title>E Pluribus Resource Library</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500;700;800&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --navy: #083452;
-      --orange: #f26a21;
-      --teal: #4c9f7a;
-      --aqua: #8acddb;
-      --sand: #f2efe8;
-      --cream: #fbfaf7;
-      --text: #173042;
-      --muted: #5e6d78;
-      --line: #d6d2c9;
+      --navy: #062f49;
+      --orange: #e66726;
+      --teal-dark: #1b353b;
+      --teal: #2c5a64;
+      --teal-bright: #4ca6b8;
+      --teal-light: #79bccc;
+      --filter-bg: #d2e9ee;
+      --grey-bg: #f2f2f2;
+      --sand: #ffffff;
+      --cream: #ffffff;
+      --text: #2c5a64;
+      --title: #333333;
+      --muted: #666666;
+      --line: #cccccc;
       --white: #ffffff;
       --layout-gutter: 40px;
       --layout-wide-max: 1360px;
       --layout-filters-max: 1160px;
+      --font-ui: "Montserrat", Arial, sans-serif;
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: "Merriweather", Georgia, serif;
+      font-family: var(--font-ui);
+      font-weight: 500;
       color: var(--text);
-      background: var(--sand);
+      background: var(--white);
     }
 
     .topbar {
@@ -56,13 +63,13 @@
 
     .site-brand {
       margin: 0;
-      font-family: "League Spartan", Arial, sans-serif;
-      font-size: 18px;
-      line-height: 0.95;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--orange);
+      font-family: var(--font-ui);
+      font-size: 32px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-transform: none;
+      color: var(--navy);
     }
 
     .top-nav {
@@ -73,18 +80,16 @@
       align-items: center;
     }
 
-    .nav-tab,
-    .dropdown-item {
+    .nav-tab {
       border: none;
       background: transparent;
       color: var(--navy);
-      font-family: "League Spartan", Arial, sans-serif;
-      font-size: 19px;
-      font-weight: 700;
+      font-family: var(--font-ui);
+      font-size: 20px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
       cursor: pointer;
-    }
-
-    .nav-tab {
       padding: 12px 14px 10px;
       transition: color 0.2s ease;
       position: relative;
@@ -96,62 +101,31 @@
       left: 14px;
       right: 14px;
       bottom: 6px;
-      height: 3px;
+      height: 2px;
       background: transparent;
       transition: background 0.2s ease;
     }
 
-    .nav-tab:hover,
+    .nav-tab:hover:not(:disabled),
     .nav-tab.active {
-      color: var(--orange);
-    }
-
-    .nav-tab.active::after {
-      background: var(--orange);
-    }
-
-    .nav-with-caret {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .caret {
-      font-size: 13px;
-      transform: translateY(1px);
-    }
-
-    .resources-menu {
-      position: relative;
-    }
-
-    .resource-dropdown {
-      position: absolute;
-      top: calc(100% + 8px);
-      right: 0;
-      min-width: 360px;
-      padding: 12px;
-      background: var(--white);
-      border: 1px solid rgba(8, 52, 82, 0.12);
-      box-shadow: 0 14px 36px rgba(8, 52, 82, 0.12);
-      display: none;
-    }
-
-    .resource-dropdown.open {
-      display: block;
-    }
-
-    .dropdown-item {
-      width: 100%;
-      text-align: left;
-      padding: 10px 12px;
-      font-size: 17px;
       color: var(--navy);
     }
 
-    .dropdown-item:hover {
-      background: var(--sand);
-      color: var(--orange);
+    .nav-tab.active::after {
+      background: var(--navy);
+    }
+
+    .nav-tab-disabled {
+      display: inline-block;
+      color: var(--muted);
+      font-family: var(--font-ui);
+      font-size: 20px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 12px 14px 10px;
+      cursor: default;
+      opacity: 0.55;
     }
 
     .page {
@@ -171,43 +145,46 @@
       width: min(var(--layout-wide-max), calc(100vw - var(--layout-gutter)));
       margin-left: auto;
       margin-right: auto;
+      background: var(--filter-bg);
     }
 
     .page-header {
-      background: var(--navy);
-      color: white;
+      background: var(--white);
+      color: var(--text);
       padding: 24px 28px 26px;
       margin-bottom: 26px;
-      border-left: 8px solid var(--orange);
-      box-shadow: 0 6px 18px rgba(8, 52, 82, 0.12);
+      border-left: none;
+      box-shadow: none;
     }
 
     .eyebrow {
-      font-family: "League Spartan", Arial, sans-serif;
-      font-size: 15px;
+      font-family: var(--font-ui);
+      font-size: 20px;
+      font-weight: 500;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--aqua);
+      color: var(--navy);
       margin-bottom: 12px;
     }
 
     h1 {
       margin: 0 0 10px;
-      font-family: "League Spartan", Arial, sans-serif;
-      font-size: clamp(42px, 6.2vw, 68px);
-      line-height: 0.96;
-      letter-spacing: -0.02em;
-      font-weight: 800;
-      color: white;
-      text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.18);
+      font-family: var(--font-ui);
+      font-size: clamp(34px, 5vw, 54px);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      font-weight: 500;
+      color: var(--teal-bright);
+      text-shadow: none;
     }
 
     .intro {
       margin: 0;
       max-width: min(900px, 100%);
-      color: rgba(255,255,255,0.95);
-      font-size: 15px;
-      line-height: 1.65;
+      color: var(--teal);
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1.5;
     }
 
     .content-section {
@@ -219,33 +196,33 @@
     }
 
     .layout-filters .eia-heading {
-      font-size: 19px;
-    }
-
-    .layout-filters .eia-pill {
       font-size: 16px;
     }
 
+    .layout-filters .eia-pill {
+      font-size: 14px;
+    }
+
     .layout-filters .filters-heading {
-      font-size: 17px;
+      font-size: 16px;
     }
 
     .layout-filters .control label {
-      font-size: 17px;
+      font-size: 16px;
     }
 
     .layout-filters input[type="search"],
     .layout-filters .multi-select-button,
     .layout-filters select {
-      font-size: 20px;
+      font-size: 16px;
     }
 
     .layout-filters .multi-option {
-      font-size: 17px;
+      font-size: 14px;
     }
 
     .layout-filters .filter-chip {
-      font-size: 15px;
+      font-size: 14px;
     }
 
     .search-row {
@@ -259,13 +236,13 @@
     .eia-section {
       margin-bottom: 22px;
       padding-bottom: 14px;
-      border-bottom: 3px solid var(--teal);
+      border-bottom: 1px solid var(--line);
     }
 
     .eia-heading {
-      font-family: "League Spartan", Arial, sans-serif;
-      font-size: 17px;
-      font-weight: 800;
+      font-family: var(--font-ui);
+      font-size: 16px;
+      font-weight: 500;
       color: var(--navy);
       margin: 0 0 12px;
     }
@@ -278,24 +255,25 @@
     }
 
     .eia-pill {
-      border: 1px solid var(--line);
-      background: var(--cream);
+      border: 1px solid var(--teal-bright);
+      background: var(--white);
       color: var(--navy);
       padding: 10px 16px 9px;
-      font-family: "League Spartan", Arial, sans-serif;
-      font-size: 15px;
-      font-weight: 700;
+      font-family: var(--font-ui);
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 999px;
       cursor: pointer;
       transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
     }
 
     .eia-pill:hover {
-      border-color: var(--aqua);
+      border-color: var(--teal-bright);
     }
 
     .eia-pill.active {
-      background: var(--navy);
-      border-color: var(--navy);
+      background: var(--teal-light);
+      border-color: var(--teal-light);
       color: var(--white);
     }
 
@@ -304,9 +282,9 @@
     }
 
     .filters-heading {
-      font-family: "League Spartan", Arial, sans-serif;
-      font-size: 15px;
-      font-weight: 800;
+      font-family: var(--font-ui);
+      font-size: 16px;
+      font-weight: 500;
       color: var(--navy);
       margin: 0 0 12px;
     }
@@ -347,14 +325,14 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      border: 1px solid var(--line);
-      background: var(--cream);
-      color: var(--navy);
+      border: 1px solid var(--teal-bright);
+      background: var(--teal-light);
+      color: var(--white);
       padding: 6px 14px 6px 16px;
       border-radius: 999px;
-      font-family: "League Spartan", Arial, sans-serif;
+      font-family: var(--font-ui);
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 500;
       cursor: default;
       max-width: 100%;
     }
@@ -362,27 +340,27 @@
     .filter-chip-remove {
       border: none;
       background: transparent;
-      color: var(--muted);
+      color: var(--white);
       font-size: 18px;
       line-height: 1;
       cursor: pointer;
       padding: 0 2px;
-      font-weight: 700;
+      font-weight: 600;
     }
 
     .filter-chip-remove:hover {
-      color: var(--orange);
+      color: var(--filter-bg);
     }
 
     .reset-button {
       height: 36px;
       padding: 0 18px;
-      border: 1px solid var(--line);
-      background: var(--cream);
+      border: none;
+      background: transparent;
       color: var(--navy);
-      font-family: "League Spartan", Arial, sans-serif;
-      font-size: 14px;
-      font-weight: 700;
+      font-family: var(--font-ui);
+      font-size: 16px;
+      font-weight: 500;
       cursor: pointer;
       border-radius: 999px;
       transition: border-color 0.2s ease, color 0.2s ease;
@@ -397,13 +375,13 @@
     }
 
     .reset-button:hover {
-      border-color: var(--orange);
-      color: var(--orange);
+      color: var(--teal-bright);
     }
 
     .control label {
-      font-family: "League Spartan", Arial, sans-serif;
-      font-size: 15px;
+      font-family: var(--font-ui);
+      font-size: 16px;
+      font-weight: 500;
       color: var(--navy);
       letter-spacing: 0.01em;
     }
@@ -419,10 +397,11 @@
       height: 52px;
       border: 1px solid var(--line);
       border-radius: 0;
-      background: var(--cream);
+      background: var(--white);
       padding: 0 48px 0 16px;
-      font-family: "League Spartan", Arial, sans-serif;
-      font-size: 18px;
+      font-family: var(--font-ui);
+      font-size: 16px;
+      font-weight: 500;
       color: var(--navy);
       appearance: none;
       outline: none;
@@ -430,12 +409,12 @@
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
-    input[type="search"]::placeholder { color: #6f7780; }
+    input[type="search"]::placeholder { color: var(--muted); }
 
     input[type="search"]:focus,
     select:focus {
-      border-color: var(--aqua);
-      box-shadow: inset 0 0 0 1px var(--aqua);
+      border-color: var(--teal-bright);
+      box-shadow: inset 0 0 0 1px var(--teal-bright);
     }
 
     .search-icon,
@@ -445,7 +424,7 @@
       top: 50%;
       transform: translateY(-50%);
       pointer-events: none;
-      color: var(--aqua);
+      color: var(--teal-bright);
       font-size: 18px;
       font-family: Arial, sans-serif;
     }
@@ -459,18 +438,19 @@
       height: 52px;
       border: 1px solid var(--line);
       border-radius: 0;
-      background: var(--cream);
+      background: var(--grey-bg);
       padding: 0 48px 0 16px;
-      font-family: "League Spartan", Arial, sans-serif;
-      font-size: 18px;
+      font-family: var(--font-ui);
+      font-size: 16px;
+      font-weight: 500;
       color: var(--navy);
       text-align: left;
       cursor: pointer;
     }
 
     .multi-select-button:focus {
-      border-color: var(--aqua);
-      box-shadow: inset 0 0 0 1px var(--aqua);
+      border-color: var(--teal-bright);
+      box-shadow: inset 0 0 0 1px var(--teal-bright);
       outline: none;
     }
 
@@ -497,9 +477,10 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      font-family: "League Spartan", Arial, sans-serif;
-      font-size: 16px;
-      color: var(--navy);
+      font-family: var(--font-ui);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--teal);
       padding: 6px 2px;
       cursor: pointer;
     }
@@ -519,13 +500,14 @@
       gap: 16px;
       margin-bottom: 12px;
       color: var(--muted);
-      font-family: "League Spartan", Arial, sans-serif;
-      font-size: 15px;
+      font-family: var(--font-ui);
+      font-size: 14px;
+      font-weight: 500;
     }
 
     .item {
       padding: 26px 0;
-      border-bottom: 1px solid rgba(8, 52, 82, 0.08);
+      border-bottom: 1px solid var(--line);
     }
 
     .resource-card {
@@ -539,8 +521,8 @@
       width: 180px;
       height: auto;
       aspect-ratio: 1 / 1;
-      background: linear-gradient(135deg, rgba(8,52,82,0.10), rgba(138,205,219,0.18));
-      border: 1px solid rgba(8, 52, 82, 0.10);
+      background: linear-gradient(135deg, rgba(210,233,238,0.9), rgba(121,188,204,0.35));
+      border: 1px solid var(--line);
     }
 
     .resource-main {
@@ -556,18 +538,18 @@
 
     .resource-title {
       margin: 0;
-      font-family: "League Spartan", Arial, sans-serif;
-      font-size: clamp(24px, 2.7vw, 34px);
-      line-height: 1.15;
-      font-weight: 800;
-      color: var(--navy);
+      font-family: var(--font-ui);
+      font-size: 26px;
+      line-height: 1.2;
+      font-weight: 600;
+      color: var(--title);
     }
 
     .resource-year {
       flex: 0 0 auto;
-      font-family: "League Spartan", Arial, sans-serif;
-      font-size: 16px;
-      font-weight: 800;
+      font-family: var(--font-ui);
+      font-size: 12px;
+      font-weight: 500;
       color: var(--orange);
       letter-spacing: 0.03em;
       text-transform: uppercase;
@@ -576,9 +558,10 @@
 
     .resource-authors {
       margin: 6px 0 10px;
-      font-family: "League Spartan", Arial, sans-serif;
+      font-family: var(--font-ui);
       font-size: 16px;
-      color: var(--text);
+      font-weight: 500;
+      color: var(--teal);
     }
 
     .impact-tags {
@@ -589,14 +572,14 @@
     }
 
     .impact-tag {
-      border: 1px solid var(--line);
-      background: var(--cream);
-      color: var(--navy);
+      border: none;
+      background: var(--filter-bg);
+      color: var(--teal);
       padding: 6px 10px;
       border-radius: 999px;
-      font-family: "League Spartan", Arial, sans-serif;
+      font-family: var(--font-ui);
       font-size: 14px;
-      font-weight: 700;
+      font-weight: 500;
     }
 
     .readmore-button {
@@ -607,16 +590,16 @@
       border: none;
       background: transparent;
       padding: 12px 0;
-      font-family: "League Spartan", Arial, sans-serif;
+      font-family: var(--font-ui);
       font-size: 16px;
-      font-weight: 800;
+      font-weight: 500;
       color: var(--navy);
       cursor: pointer;
       text-align: left;
     }
 
     .readmore-button:hover {
-      color: var(--orange);
+      color: var(--teal-bright);
     }
 
     .readmore-icon {
@@ -644,15 +627,16 @@
     }
 
     .details-inner {
-      background: var(--cream);
-      border-left: 4px solid var(--aqua);
+      background: var(--filter-bg);
+      border-left: 4px solid var(--teal-bright);
       padding: 16px 18px 14px;
     }
 
     .summary {
       max-width: 860px;
-      color: var(--text);
-      font-size: 15px;
+      color: var(--teal);
+      font-size: 14px;
+      font-weight: 500;
       line-height: 1.7;
       margin: 0 0 12px;
     }
@@ -662,9 +646,9 @@
     }
 
     .tag-group-title {
-      font-family: "League Spartan", Arial, sans-serif;
+      font-family: var(--font-ui);
       font-size: 14px;
-      font-weight: 800;
+      font-weight: 500;
       color: var(--muted);
       text-transform: uppercase;
       letter-spacing: 0.06em;
@@ -678,14 +662,14 @@
     }
 
     .tag-pill {
-      border: 1px solid var(--line);
-      background: var(--white);
-      color: var(--navy);
+      border: none;
+      background: var(--filter-bg);
+      color: var(--teal);
       padding: 6px 10px;
       border-radius: 999px;
-      font-family: "League Spartan", Arial, sans-serif;
+      font-family: var(--font-ui);
       font-size: 14px;
-      font-weight: 700;
+      font-weight: 500;
     }
 
     .tag-pill.muted {
@@ -696,19 +680,21 @@
     .resource-link {
       display: inline-block;
       margin-top: 12px;
-      padding: 10px 14px;
-      background: var(--orange);
-      color: white;
-      text-decoration: none;
-      font-family: "League Spartan", Arial, sans-serif;
+      padding: 0;
+      background: transparent;
+      color: var(--navy);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-family: var(--font-ui);
       font-size: 16px;
-      font-weight: 800;
-      letter-spacing: 0.01em;
-      transition: background 0.2s ease;
+      font-weight: 500;
+      letter-spacing: 0;
+      transition: color 0.2s ease;
     }
 
     .resource-link:hover {
-      background: #d95c1a;
+      color: var(--teal-bright);
+      background: transparent;
     }
 
     @media (max-width: 760px) {
@@ -738,15 +724,16 @@
       border: 1px solid transparent;
       background: transparent;
       color: var(--navy);
-      font-family: "League Spartan", Arial, sans-serif;
-      font-size: 22px;
+      font-family: var(--font-ui);
+      font-size: 20px;
+      font-weight: 500;
       cursor: pointer;
     }
 
     .page-button.active {
       border-color: var(--line);
-      background: var(--cream);
-      color: var(--orange);
+      background: var(--filter-bg);
+      color: var(--teal-bright);
     }
 
     .page-button:disabled {
@@ -757,19 +744,21 @@
     .empty {
       padding: 40px 0;
       color: var(--muted);
-      font-size: 18px;
+      font-size: 16px;
+      font-weight: 500;
     }
 
     .placeholder-page {
-      background: var(--cream);
-      border-left: 6px solid var(--orange);
+      background: var(--filter-bg);
+      border-left: 6px solid var(--teal-bright);
       padding: 28px 26px;
-      box-shadow: 0 6px 18px rgba(8, 52, 82, 0.08);
+      box-shadow: none;
     }
 
     .placeholder-kicker {
-      font-family: "League Spartan", Arial, sans-serif;
+      font-family: var(--font-ui);
       font-size: 14px;
+      font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--teal);
@@ -778,18 +767,20 @@
 
     .placeholder-title {
       margin: 0 0 12px;
-      font-family: "League Spartan", Arial, sans-serif;
+      font-family: var(--font-ui);
       font-size: 40px;
+      font-weight: 600;
       line-height: 1;
-      color: var(--navy);
+      color: var(--title);
     }
 
     .placeholder-text {
       max-width: 720px;
       margin: 0;
       font-size: 16px;
+      font-weight: 500;
       line-height: 1.7;
-      color: var(--text);
+      color: var(--teal);
     }
 
     .contact-panel {
@@ -798,23 +789,24 @@
       color: white;
       padding: 22px 22px 20px;
       border-top: 6px solid var(--orange);
-      box-shadow: 0 6px 18px rgba(8, 52, 82, 0.12);
+      box-shadow: none;
     }
 
     .contact-kicker {
-      font-family: "League Spartan", Arial, sans-serif;
+      font-family: var(--font-ui);
       font-size: 14px;
+      font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--aqua);
+      color: var(--teal-light);
       margin-bottom: 10px;
     }
 
     .contact-title {
-      font-family: "League Spartan", Arial, sans-serif;
+      font-family: var(--font-ui);
       font-size: 32px;
       line-height: 1;
-      font-weight: 700;
+      font-weight: 600;
       margin: 0 0 10px;
       color: white;
     }
@@ -823,7 +815,8 @@
       margin: 0 0 16px;
       max-width: 760px;
       color: rgba(255,255,255,0.92);
-      font-size: 14px;
+      font-size: 16px;
+      font-weight: 500;
       line-height: 1.65;
     }
 
@@ -835,22 +828,24 @@
 
     .contact-card {
       background: rgba(255,255,255,0.08);
-      border-left: 4px solid var(--aqua);
+      border-left: 4px solid var(--teal-light);
       padding: 14px 14px 12px;
     }
 
     .contact-label {
-      font-family: "League Spartan", Arial, sans-serif;
+      font-family: var(--font-ui);
       font-size: 13px;
+      font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      color: var(--aqua);
+      color: var(--teal-light);
       margin-bottom: 6px;
     }
 
     .contact-value {
       color: white;
-      font-size: 15px;
+      font-size: 16px;
+      font-weight: 500;
       line-height: 1.55;
     }
 
@@ -861,8 +856,8 @@
     }
 
     .contact-value a:hover {
-      color: var(--aqua);
-      border-bottom-color: var(--aqua);
+      color: var(--teal-light);
+      border-bottom-color: var(--teal-light);
     }
 
     @media (max-width: 980px) {
@@ -881,10 +876,6 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .resource-dropdown {
-        right: auto;
-        left: 0;
-      }
     }
 
     @media (max-width: 760px) {
@@ -907,30 +898,18 @@
       .details.open {
         max-height: 640px;
       }
-
-      .resource-dropdown {
-        min-width: 290px;
-      }
     }
   </style>
 </head>
 <body>
   <div class="topbar">
     <div class="topbar-inner">
-      <p class="site-brand">E Pluribus<br>Resource Library</p>
+      <p class="site-brand">E Pluribus</p>
       <nav class="top-nav" aria-label="Main navigation">
-        <button class="nav-tab active" data-page="about">About</button>
-        <button class="nav-tab" data-page="events">Events</button>
-        <div class="resources-menu">
-          <button class="nav-tab nav-with-caret" id="resourcesMenuButton" aria-expanded="false">Resources <span class="caret">▼</span></button>
-          <div class="resource-dropdown" id="resourcesDropdown">
-            <button class="dropdown-item" data-type="All Resources">All Resources</button>
-            <button class="dropdown-item" data-type="Special Populations Covered">Special Populations Covered</button>
-            <button class="dropdown-item" data-type="Publication Format">Publication Format</button>
-            <button class="dropdown-item" data-type="Use Case">Use Case</button>
-            </div>
-        </div>
-        <button class="nav-tab" data-page="contact">Contact Us</button>
+        <span class="nav-tab-disabled">About</span>
+        <button class="nav-tab active" data-page="resources">Research</button>
+        <span class="nav-tab-disabled">Events</span>
+        <span class="nav-tab-disabled">Contact Us</span>
       </nav>
     </div>
   </div>
@@ -938,15 +917,15 @@
   <main class="page">
     <div class="layout-wide">
       <header class="page-header">
-        <div class="eyebrow" id="pageEyebrow">About</div>
-        <h1 id="pageTitle">About</h1>
+        <div class="eyebrow" id="pageEyebrow">E Pluribus Research Library</div>
+        <h1 id="pageTitle">All research and evidence</h1>
         <p class="intro" id="pageIntro">
-          Learn more about the purpose of this library and the broader work supporting immigrant inclusion and thriving communities.
+          Research, reports, and practical resources on immigrant inclusion, workforce development, local economies, and thriving communities.
         </p>
       </header>
     </div>
 
-    <section id="resourcesPage" class="content-section" aria-label="Resources page">
+    <section id="resourcesPage" class="content-section active" aria-label="Resources page">
       <div class="layout-filters">
         <section class="search-row" aria-label="Keyword search">
           <div class="control">
@@ -1044,7 +1023,7 @@
     </section>
 
     <div class="layout-wide">
-      <section id="aboutPage" class="content-section active" aria-label="About us page">
+      <section id="aboutPage" class="content-section" aria-label="About us page">
         <div class="placeholder-page">
           <div class="placeholder-kicker">About</div>
           <h2 class="placeholder-title">About</h2>
@@ -1320,7 +1299,7 @@ const resources = [
         intro: "Learn more about the purpose of this library and the broader work supporting immigrant inclusion and thriving communities."
       },
       resources: {
-        eyebrow: "Research Library",
+        eyebrow: "E Pluribus Research Library",
         title: "All research and evidence",
         intro: "Research, reports, and practical resources on immigrant inclusion, workforce development, local economies, and thriving communities."
       },
@@ -1348,7 +1327,7 @@ const resources = [
       page: 1,
       perPage: 8,
       openKey: null,
-      activePage: "about"
+      activePage: "resources"
     };
 
     const searchInput = document.getElementById("searchInput");
@@ -1379,10 +1358,6 @@ const resources = [
     const pageTitle = document.getElementById("pageTitle");
     const pageIntro = document.getElementById("pageIntro");
     const navTabs = document.querySelectorAll(".nav-tab[data-page]");
-    const resourcesMenuButton = document.getElementById("resourcesMenuButton");
-    const resourcesDropdown = document.getElementById("resourcesDropdown");
-    const dropdownItems = document.querySelectorAll(".dropdown-item");
-
     const sections = {
       about: document.getElementById("aboutPage"),
       resources: document.getElementById("resourcesPage"),
@@ -1659,19 +1634,9 @@ const resources = [
       navTabs.forEach(tab => {
         tab.classList.toggle("active", tab.dataset.page === page);
       });
-      resourcesMenuButton.classList.toggle("active", page === "resources");
-
       Object.entries(sections).forEach(([key, section]) => {
         section.classList.toggle("active", key === page);
       });
-    }
-
-    function openResourcesPage() {
-      state.page = 1;
-      state.openKey = null;
-      setActivePage("resources");
-      closeDropdown();
-      renderList();
     }
 
     function resetFilters() {
@@ -1840,28 +1805,7 @@ const resources = [
       });
     }
 
-    function closeDropdown() {
-      resourcesDropdown.classList.remove("open");
-      resourcesMenuButton.setAttribute("aria-expanded", "false");
-    }
-
-    resourcesMenuButton.addEventListener("click", (event) => {
-      event.stopPropagation();
-      const willOpen = !resourcesDropdown.classList.contains("open");
-      resourcesDropdown.classList.toggle("open", willOpen);
-      resourcesMenuButton.setAttribute("aria-expanded", willOpen ? "true" : "false");
-    });
-
-    dropdownItems.forEach(button => {
-      button.addEventListener("click", () => {
-        openResourcesPage();
-      });
-    });
-
     document.addEventListener("click", (event) => {
-      if (!event.target.closest(".resources-menu")) {
-        closeDropdown();
-      }
       if (!event.target.closest(".multi-select")) {
         document.querySelectorAll(".multi-select").forEach(el => el.classList.remove("open"));
       }
@@ -1870,7 +1814,6 @@ const resources = [
     navTabs.forEach(tab => {
       tab.addEventListener("click", () => {
         setActivePage(tab.dataset.page);
-        closeDropdown();
       });
     });
 
@@ -1937,7 +1880,7 @@ const resources = [
 
     fillAuxiliaryFilters();
     renderEconomicPills();
-    setActivePage("about");
+    setActivePage("resources");
     renderList();
   </script>
 </body>
